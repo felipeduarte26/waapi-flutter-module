@@ -63,6 +63,7 @@ yarn-error.log*
 build_log.txt
 *.backup
 *.tmp
+logs/
 
 # Environment files
 .env

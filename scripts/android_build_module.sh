@@ -100,16 +100,46 @@ buildAndroid() {
   echo "Iniciando flutter build aar..."
   echo "⏰ Aguardando build completar (pode demorar até 55 minutos)..."
   
+  # Criar diretório de logs se não existir
+  LOG_DIR="$BASE_DIR/logs"
+  mkdir -p "$LOG_DIR"
+  
+  # Definir arquivos de log com timestamp
+  TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+  BUILD_LOG="$LOG_DIR/flutter_build_aar_${TIMESTAMP}.log"
+  BUILD_ERROR_LOG="$LOG_DIR/flutter_build_aar_error_${TIMESTAMP}.log"
+  
+  echo "📋 Logs serão salvos em:"
+  echo "   - Output: $BUILD_LOG"
+  echo "   - Errors: $BUILD_ERROR_LOG"
+  
   # Executar comando e capturar exit code explicitamente
   set +e  # Temporariamente desabilitar exit on error
-  flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons -v
+  flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons -v > "$BUILD_LOG" 2> "$BUILD_ERROR_LOG"
   BUILD_EXIT_CODE=$?
   set -e  # Reabilitar exit on error
   
   echo "📋 Flutter build aar terminou com código: $BUILD_EXIT_CODE"
   
+  # Mostrar resumo dos logs
+  echo ""
+  echo "📋 Resumo dos logs:"
+  echo "   - Log principal: $(wc -l < "$BUILD_LOG" 2>/dev/null || echo "0") linhas"
+  echo "   - Log de erros: $(wc -l < "$BUILD_ERROR_LOG" 2>/dev/null || echo "0") linhas"
+  
+  # Mostrar últimas linhas do log de erro se houver conteúdo
+  if [ -s "$BUILD_ERROR_LOG" ]; then
+    echo ""
+    echo "🚨 Últimas linhas do log de erro:"
+    tail -10 "$BUILD_ERROR_LOG" || echo "Erro ao ler log de erro"
+  fi
+  
   if [ $BUILD_EXIT_CODE -eq 0 ]; then
     echo "✅ Build completou com sucesso!"
+    # Mostrar últimas linhas do log de sucesso
+    echo ""
+    echo "📋 Últimas linhas do build:"
+    tail -10 "$BUILD_LOG" || echo "Erro ao ler log principal"
   elif [ $BUILD_EXIT_CODE -eq 143 ]; then
     echo "⚠️ Build foi interrompido por timeout (143)"
   elif [ $BUILD_EXIT_CODE -eq 124 ]; then
