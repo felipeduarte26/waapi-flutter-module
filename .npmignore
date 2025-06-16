@@ -1,0 +1,62 @@
+# Build artifacts and cache
+**/XCBuildData/
+**/build.db
+**/build/
+**/.build/
+**/DerivedData/
+**/.gradle/
+**/Pods/
+**/.pub-cache/
+
+# Debug builds and simulators
+**/Debug/
+**/debug/
+**/iphonesimulator/
+**/iphoneos/
+**/simulator/
+**/device/
+
+# Intermediate files
+**/*.dSYM/
+**/*.xcarchive/
+**/*.app/
+**/*.ipa
+**/*.apk
+**/*.aab
+**/*.so
+**/*.dylib
+**/kernel_blob.bin
+
+# Development files
+.flutter-plugins*
+.dart_tool/
+.packages
+pubspec.lock
+.metadata
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Scripts and docs (keep only essential ones)
+scripts/android_build_module.sh
+scripts/build_modules_ios.sh
+scripts/build.js
+INTEGRATION.md
+README.md
+.github/
+
+# Keep only essential files for the package
+# android/repo/ - Maven repository artifacts
+# ios/**/*.framework - iOS frameworks
+# ios/**/*.xcframework - iOS XCFrameworks  
+# package.json, index.js, react-native.config.js, WaapiModule.podspec, scripts/setup.js 

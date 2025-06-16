@@ -190,12 +190,20 @@ jobs:
           # Criar diretórios necessários
           mkdir -p android/repo ios/
 
+          # Limpar arquivos desnecessários dos artifacts iOS
+          echo "🧹 Limpando arquivos desnecessários..."
+          find ios/ -name "XCBuildData" -type d -exec rm -rf {} + 2>/dev/null || true
+          find ios/ -name "build.db" -delete 2>/dev/null || true
+          find ios/ -name "*.dSYM" -type d -exec rm -rf {} + 2>/dev/null || true
+          find ios/ -path "*/Debug/*" -delete 2>/dev/null || true
+          find ios/ -path "*/iphonesimulator/*" -not -name "*.framework" -not -name "*.xcframework" -delete 2>/dev/null || true
+
           # Verificar se os artifacts foram baixados corretamente
           echo "📦 Verificando artifacts Android:"
           ls -la android/repo/ | head -10
 
           echo "📦 Verificando artifacts iOS:"
-          ls -la ios/ | head -10
+          find ios/ -name "*.framework" -o -name "*.xcframework" | head -10
 
       - name: Generate package version
         id: version
@@ -272,6 +280,19 @@ jobs:
             s.dependency 'FlutterPluginRegistrant'
           end
           EOF
+
+      - name: Check package size
+        run: |
+          echo "📊 Verificando tamanho do pacote..."
+          npm pack --dry-run | tail -20
+
+          # Verificar tamanho total
+          TOTAL_SIZE=$(du -sh . | cut -f1)
+          echo "📦 Tamanho total do diretório: $TOTAL_SIZE"
+
+          # Contar arquivos
+          FILE_COUNT=$(find . -type f | wc -l)
+          echo "📂 Total de arquivos: $FILE_COUNT"
 
       - name: Publish to GitHub Packages
         run: |
