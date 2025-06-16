@@ -14,6 +14,7 @@ env:
 jobs:
   build-android:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -60,7 +61,13 @@ jobs:
           find . -name "kernel_blob.bin" -delete 2>/dev/null || true
 
       - name: Build Android AAR
+        timeout-minutes: 60
         run: |
+          # Configurar ambiente para builds grandes
+          export GRADLE_OPTS="-Xmx6G -XX:MaxMetaspaceSize=4G -Dorg.gradle.daemon=false"
+          export JAVA_OPTS="-Xmx6G"
+
+          # Executar build
           chmod +x scripts/android_build_module.sh
           ./scripts/android_build_module.sh
 
@@ -82,6 +89,7 @@ jobs:
 
   build-ios:
     runs-on: macos-latest
+    timeout-minutes: 90
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -125,6 +133,7 @@ jobs:
           find . -name "kernel_blob.bin" -delete 2>/dev/null || true
 
       - name: Build iOS Framework
+        timeout-minutes: 60
         run: |
           chmod +x scripts/build_modules_ios.sh
           ./scripts/build_modules_ios.sh
