@@ -1,0 +1,13 @@
+{
+  "dart.flutterSdkPath": ".fvm/versions/3.27.4",
+  "search.exclude": {
+    "**/.fvm": true
+  },
+  "files.watcherExclude": {
+    "**/.fvm": true
+  },
+  "sonarlint.connectedMode.project": {
+    "connectionId": "<default>",
+    "projectKey": "gestao-ponto-ponto-mobile-collector"
+  }
+}

@@ -1,0 +1,4 @@
+enum SeniorBadgeIconPosition {
+  left,
+  right,
+}

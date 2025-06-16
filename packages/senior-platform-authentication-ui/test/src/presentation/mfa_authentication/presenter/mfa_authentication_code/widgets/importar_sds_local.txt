@@ -1,0 +1,4 @@
+dependency_overrides:
+  senior_design_system:
+    path: ..\components\flutter-components\
+  intl: ^0.18.1

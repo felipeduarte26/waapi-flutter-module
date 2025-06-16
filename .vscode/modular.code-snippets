@@ -1,0 +1,48 @@
+{
+	"modular_new_module": {
+		"prefix": "modular_new_module",
+		"body": [
+			"import 'package:flutter_modular/flutter_modular.dart';",
+			"",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends Module {",
+			"  @override",
+			"  List<Bind> get binds {",
+			"    return [$1];",
+			"  }",
+			"",
+			"  @override",
+			"  List<ModularRoute> get routes {",
+			"    return [];",
+			"  }",
+			"}",
+			"",
+		],
+		"description": "Creates a Modular module."
+	},
+	"modular_new_child_route": {
+		"prefix": "modular_new_child_route",
+		"body": [
+			"ChildRoute($1, child: (context, args) => $2),",
+		],
+		"description": "Creates a ChildRoute."
+	},
+	"modular_new_bind_singleton": {
+		"prefix": "modular_new_bind_singleton",
+		"body": [
+			"Bind.singleton<$1>((i) => $2)",
+		],
+		"description": "Creates a singleton Bind."
+	},
+	"modular_new_bind_file": {
+		"prefix": "modular_new_bind_file",
+		"body": [
+			"import 'package:flutter_modular/flutter_modular.dart';",
+			"",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+			"  static List<Bind<Object>> binds = [];",
+			"}",
+			"",
+		],
+		"description": "Creates a singleton Bind."
+	},
+}

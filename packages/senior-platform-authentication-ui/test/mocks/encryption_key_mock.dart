@@ -1,0 +1,1 @@
+const String encryptionKeyMock = 'BE2Z9pdtt2AJqjt3tX0jSl1SG2QNZmvf';

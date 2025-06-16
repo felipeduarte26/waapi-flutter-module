@@ -1,0 +1,32 @@
+import 'package:ponto_mobile_collector/app/collector/core/domain/entities/global_configuration_entity.dart';
+
+GlobalConfigurationEntity globalConfigurationEntityMock =
+    const GlobalConfigurationEntity(
+  id: 'testId',
+  gps: true,
+  online: true,
+  timeout: '30',
+  operationMode: 'testMode',
+  nfcMode: true,
+  allowChangeTime: true,
+  timezone: 'America/Sao_Paulo',
+  deviceAuthModeSingleMode: 'true',
+  deviceAuthModeMultiMode: 'true',
+  deviceAuthModeDriverMode: 'true',
+  allowDrivingTime: true,
+  overnight: true,
+  controlOvernight: true,
+  allowGpoOnApp: true,
+  exportNotChecked: true,
+  insightOutOfBound: 'testInsight',
+  takePhotoSingle: true,
+  takePhotoMulti: true,
+  takePhotoDriver: true,
+  takePhotoNfc: true,
+  takePhotoQrcode: true,
+  openExternalBrowser: true,
+  allowUse: true,
+  externalControlTimezone: true,
+  faceRecognition: true,
+  clockingEventUses: [],
+);

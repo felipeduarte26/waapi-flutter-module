@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+
+kind: Component
+
+metadata:
+  annotations:
+    grafana/tag-selector: design-senior-design-system
+    sonarqube.org/project-key: design-senior-design-system
+  description: Projeto com a implementação dos componente do Senior Design System
+    para aplicações móveis em Flutter. Disponibiliza uma série de componentes que
+    podem ser usados na interfaces dos aplicativos.
+  links:
+  - title: Documentação
+    url: https://wiki.senior.com.br/
+  name: senior-design-system
+
+spec:
+  lifecycle: production
+  owner: design
+  type: service

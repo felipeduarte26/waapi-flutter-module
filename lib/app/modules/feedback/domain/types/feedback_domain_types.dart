@@ -1,0 +1,25 @@
+import '../../../../core/types/either.dart';
+import '../entities/employee_entity.dart';
+import '../entities/feedback_entity.dart';
+import '../entities/feedback_request_entity.dart';
+import '../entities/proficiency_feedback_entity.dart';
+import '../entities/sent_feedback_id_entity.dart';
+import '../entities/skill_feedback_entity.dart';
+import '../entities/user_info_feedback_entity.dart';
+import '../failures/feedback_failure.dart';
+
+typedef GetReceivedFeedbacksUsecaseCallback = Future<Either<FeedbackFailure, List<FeedbackEntity>>>;
+typedef GetFeedbackByIdUsecaseCallback = Future<Either<FeedbackFailure, FeedbackEntity>>;
+typedef GetFeedbackRequestsUsecaseCallback = Future<Either<FeedbackFailure, List<FeedbackRequestEntity>>>;
+typedef GetSentFeedbacksUsecaseCallback = Future<Either<FeedbackFailure, List<FeedbackEntity>>>;
+typedef SetFeedbackPublicUsecaseCallback = Future<Either<FeedbackFailure, Unit>>;
+typedef SetFeedbackPrivateUsecaseCallback = Future<Either<FeedbackFailure, Unit>>;
+typedef DeleteFeedbackUsecaseCallback = Future<Either<FeedbackFailure, Unit>>;
+typedef SearchCompetencesUsecaseCallback = Future<Either<FeedbackFailure, List<SkillFeedbackEntity>>>;
+typedef SearchEmployeesUsecaseCallback = Future<Either<FeedbackFailure, List<EmployeeEntity>>>;
+typedef SelectEmployeeUsecaseCallback = Future<Either<FeedbackFailure, EmployeeEntity>>;
+typedef RequestFeedbackUsecaseCallback = Future<Either<FeedbackFailure, Unit>>;
+typedef GetProficiencyListUsecaseCallback = Future<Either<FeedbackFailure, List<ProficiencyFeedbackEntity>>>;
+typedef GetUserInfoFeedbackEntityUsecaseCallback = Future<Either<FeedbackFailure, UserInfoFeedbackEntity>>;
+typedef SendFeedbackUsecaseCallback = Future<Either<FeedbackFailure, SentFeedbackIdEntity>>;
+typedef RequestFeedbackDetailUsecaseCallback = Future<Either<FeedbackFailure, FeedbackRequestEntity>>;

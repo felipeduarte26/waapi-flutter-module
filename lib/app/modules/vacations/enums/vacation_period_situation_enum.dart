@@ -1,0 +1,4 @@
+enum VacationPeriodSituationEnum {
+  opened,
+  paid,
+}

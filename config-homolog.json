@@ -1,0 +1,7 @@
+{
+    "FIREBASE_ENVIRONMENT": "homolog",
+    "PLATFORM_URL_BASE": "https://platform-homologx.senior.com.br/t/senior.com.br/bridge/1.0/rest/",
+    "HCM_API_URL_BASE": "https://platform-homologx.senior.com.br/frontend-api/",
+    "SHOW_DEBUG_BANNER": true,
+    "ENCRYPTION_KEY": "WM2OYCimkNhQaoNOmuSNxsS69O3if5Y8"
+}

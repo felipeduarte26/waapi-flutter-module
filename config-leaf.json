@@ -1,0 +1,7 @@
+{
+    "FIREBASE_ENVIRONMENT": "development",
+    "PLATFORM_URL_BASE": "https://cloud-leaf.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+    "HCM_API_URL_BASE": "https://VWT001SATHCM003.interno.senior.com.br:8443/hcm-api",
+    "SHOW_DEBUG_BANNER": true,
+    "ENCRYPTION_KEY": "WM2OYCimkNhQaoNOmuSNxsS69O3if5Y8"
+}

@@ -1,0 +1,117 @@
+include: package:flutter_lints/flutter.yaml
+
+# Rules: https://dart-lang.github.io/linter/lints/index.html
+
+# Dart Core Rules:        https://github.com/dart-lang/lints/blob/main/lib/core.yaml
+# Dart Recommended Rules: https://github.com/dart-lang/lints/blob/main/lib/recommended.yaml
+# Flutter Rules:          https://github.com/flutter/packages/blob/master/packages/flutter_lints/lib/flutter.yaml
+# Code Metrics Rules:     https://dartcodemetrics.dev/docs/rules/overview
+
+analyzer:
+  exclude:
+    - lib/test/**
+    - lib/generated/**
+  plugins:
+    - dart_code_metrics
+  errors:
+    # custom rules - errors
+    no_duplicate_case_values: error
+    directives_ordering: error
+    prefer_relative_imports: error
+    always_declare_return_types: error
+    avoid_multiple_declarations_per_line: error
+    avoid_unused_constructor_parameters: error
+    prefer_single_quotes: error
+    avoid_positional_boolean_parameters: error
+    require_trailing_commas: error
+    unused_import: error
+    unnecessary_null_comparison: error
+    unnecessary_import: error
+    unused_local_variable: error
+
+    # custom rules - warnings
+    use_named_constants: warning
+
+    # default rules - errors
+    missing_return: error
+    dead_code: error
+    camel_case_extensions: error
+    camel_case_types: error
+    non_constant_identifier_names: error
+    empty_catches: error
+    empty_constructor_bodies: error
+    file_names: error
+    library_names: error
+    library_prefixes: error
+    prefer_final_fields: error
+    avoid_returning_null_for_void: error
+    always_require_non_null_named_parameters: error
+    body_might_complete_normally_nullable: error
+    prefer_const_constructors: error
+    prefer_const_constructors_in_immutables: error
+    unused_field: error
+    depend_on_referenced_packages: false
+
+    # default rules - warnings
+    annotate_overrides: warning
+    avoid_init_to_null: warning
+    prefer_contains: warning
+    prefer_is_empty: warning
+    always_put_required_named_parameters_first: warning
+    avoid_renaming_method_parameters: warning
+    use_function_type_syntax_for_parameters: warning
+
+    # default rules - info
+    prefer_const_literals_to_create_immutables: info
+    prefer_const_declarations: info
+
+linter:
+  rules:
+    - require_trailing_commas
+    - no_duplicate_case_values
+    - prefer_relative_imports
+    - always_declare_return_types
+    - avoid_multiple_declarations_per_line
+    - avoid_unused_constructor_parameters
+    - prefer_single_quotes
+    - avoid_positional_boolean_parameters
+    - use_named_constants
+    - eol_at_end_of_file
+    - directives_ordering
+
+
+dart_code_metrics:
+  rules:
+    # Define e ordem dos membros de uma classe
+    - member-ordering:
+        severity: error
+        order:
+          - fields
+          - constructors
+    # Não permite deixar parâmetros não usados.
+    - avoid-unused-parameters:
+        severity: error
+    # Indica a preferência por usar if ternário onde for possível.
+    - prefer-conditional-expressions:
+        severity: error
+    # Indica a preferência em usar .first ao invés de [0].
+    - prefer-first:
+        severity: error
+    # Indica a preferência em usar .last ao invés de [length-1].
+    - prefer-last:
+        severity: error
+    # Valida se o nome da classe combina com o nome do arquivo.
+    - prefer-match-file-name:
+        severity: error
+    # Não permite setStates desnecessários.
+    - avoid-unnecessary-setstate:
+        severity: error
+    # Nomes que são banidos de existirem no código-fonte.
+    - ban-name:
+        entries:
+          - ident: BlocProvider
+            description: Please do not use BlocProvider.
+        severity: error
+  rules-exclude:
+    - test/**
+    - lib/generated/

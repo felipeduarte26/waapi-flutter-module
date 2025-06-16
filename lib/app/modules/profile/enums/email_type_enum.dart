@@ -1,0 +1,4 @@
+enum EmailTypeEnum {
+  personal,
+  professional,
+}

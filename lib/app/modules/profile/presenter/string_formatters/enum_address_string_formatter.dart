@@ -1,0 +1,113 @@
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../enums/address_type_enum.dart';
+
+class EnumAddressStringFormatter {
+  String getEnumAddressString({
+    required AddressTypeEnum addressTypeEnum,
+    required AppLocalizations appLocalizations,
+  }) {
+    switch (addressTypeEnum) {
+      case AddressTypeEnum.aeroporto:
+        return appLocalizations.airport;
+      case AddressTypeEnum.alameda:
+        return appLocalizations.promenade;
+      case AddressTypeEnum.area:
+        return appLocalizations.area;
+      case AddressTypeEnum.avenida:
+        return appLocalizations.avenue;
+      case AddressTypeEnum.balneario:
+        return appLocalizations.resort;
+      case AddressTypeEnum.bloco:
+        return appLocalizations.block;
+      case AddressTypeEnum.campo:
+        return appLocalizations.field;
+      case AddressTypeEnum.chacara:
+        return appLocalizations.farmstead;
+      case AddressTypeEnum.colonia:
+        return appLocalizations.colony;
+      case AddressTypeEnum.condominio:
+        return appLocalizations.condominium;
+      case AddressTypeEnum.conjunto:
+        return appLocalizations.set;
+      case AddressTypeEnum.distrito:
+        return appLocalizations.district;
+      case AddressTypeEnum.esplanada:
+        return appLocalizations.terrace;
+      case AddressTypeEnum.estacao:
+        return appLocalizations.station;
+      case AddressTypeEnum.estrada:
+        return appLocalizations.road;
+      case AddressTypeEnum.favela:
+        return appLocalizations.slum;
+      case AddressTypeEnum.fazenda:
+        return appLocalizations.farm;
+      case AddressTypeEnum.feira:
+        return appLocalizations.market;
+      case AddressTypeEnum.galeria:
+        return appLocalizations.gallery;
+      case AddressTypeEnum.granja:
+        return appLocalizations.grange;
+      case AddressTypeEnum.jardim:
+        return appLocalizations.garden;
+      case AddressTypeEnum.ladeira:
+        return appLocalizations.slope;
+      case AddressTypeEnum.lago:
+        return appLocalizations.lake;
+      case AddressTypeEnum.lagoa:
+        return appLocalizations.lagoon;
+      case AddressTypeEnum.largo:
+        return appLocalizations.plaza;
+      case AddressTypeEnum.loteamento:
+        return appLocalizations.allotment;
+      case AddressTypeEnum.morro:
+        return appLocalizations.hill;
+      case AddressTypeEnum.nucleo:
+        return appLocalizations.nucleus;
+      case AddressTypeEnum.parque:
+        return appLocalizations.park;
+      case AddressTypeEnum.passarela:
+        return appLocalizations.footbridge;
+      case AddressTypeEnum.patio:
+        return appLocalizations.courtyard;
+      case AddressTypeEnum.praca:
+        return appLocalizations.square;
+      case AddressTypeEnum.praia:
+        return appLocalizations.beach;
+      case AddressTypeEnum.quadra:
+        return appLocalizations.quarter;
+      case AddressTypeEnum.recanto:
+        return appLocalizations.corner;
+      case AddressTypeEnum.residencial:
+        return appLocalizations.residential_area;
+      case AddressTypeEnum.rodovia:
+        return appLocalizations.highway;
+      case AddressTypeEnum.rua:
+        return appLocalizations.street;
+      case AddressTypeEnum.setor:
+        return appLocalizations.sector;
+      case AddressTypeEnum.sitio:
+        return appLocalizations.ranch;
+      case AddressTypeEnum.travessa:
+        return appLocalizations.bystreet;
+      case AddressTypeEnum.trecho:
+        return appLocalizations.passage;
+      case AddressTypeEnum.trevo:
+        return appLocalizations.crossing;
+      case AddressTypeEnum.vale:
+        return appLocalizations.valley;
+      case AddressTypeEnum.vereda:
+        return appLocalizations.path;
+      case AddressTypeEnum.via:
+        return appLocalizations.route;
+      case AddressTypeEnum.viaduto:
+        return appLocalizations.viaduct;
+      case AddressTypeEnum.viela:
+        return appLocalizations.alleyway;
+      case AddressTypeEnum.vila:
+        return appLocalizations.village;
+      case AddressTypeEnum.outros:
+        return appLocalizations.others;
+    }
+  }
+}

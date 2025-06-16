@@ -1,0 +1,54 @@
+.DS_Store
+.dart_tool/
+
+.pub/
+
+.idea/
+.vagrant/
+.sconsign.dblite
+.svn/
+
+migrate_working_dir/
+
+*.swp
+
+DerivedData/
+
+.generated/
+
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+!default.pbxuser
+!default.mode1v3
+!default.mode2v3
+!default.perspectivev3
+
+xcuserdata
+
+*.moved-aside
+
+*.pyc
+*sync/
+.tags*
+
+build/
+.android/.gradle
+.android/plugins_build_output
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# FVM Version Cache
+.fvm/
+
+# Ignorar arquivo gerado pelo Flutter no módulo waapi_module
+/modules/waapi_module/.ios/Flutter/Generated.xcconfig
+/modules/waapi_module/.ios/Flutter/flutter_export_environment.sh

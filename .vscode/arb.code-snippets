@@ -1,0 +1,12 @@
+{
+	"translation_key": {
+		"prefix": "translation_key",
+		"body": [
+			"\"$1\": \"$2\",",
+            "\"@$1\" : {",
+            "    \"description\": \"$3\"",
+            "}"
+		],
+		"description": "Creates a translation key with the context properties."
+	},
+}

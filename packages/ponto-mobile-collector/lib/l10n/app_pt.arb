@@ -1,0 +1,606 @@
+{
+  "appTitle": "Marcação de Ponto Senior",
+  "@appTitle": {
+    "description": "Titulo da aplicação"
+  },
+  "helloWorld": "Olá Mundo!",
+  "@helloWorld": {
+    "description": "Mensagem de boas vindas"
+  },
+  "dateFormatClock": "d 'de' MMMM 'de' y",
+  "@dateFormatClock": {
+    "description": "Formato de data no relógio"
+  },
+  "share": "Compartilhar",
+  "@share": {
+    "description": "Compartilhar"
+  },
+  "close": "Fechar",
+  "@close": {
+    "description": "Fechar"
+  },
+  "appointmentReceipt": "Comprovante de marcação",
+  "@appointmentReceipt": {
+    "description": "Comprovante de marcação"
+  },
+  "cardReceiptData": "Data",
+  "@cardReceiptData": {
+    "description": "Data da marcação"
+  },
+  "cardReceiptTime": "Horário",
+  "@cardReceiptTime": {
+    "description": "Horario da marcação"
+  },
+  "cardReceiptZone": "Fuso",
+  "@cardReceiptZone": {
+    "description": "Fuso horário da marcação"
+  },
+  "cardReceiptEmployeeName": "Colaborador",
+  "@cardReceiptEmployeeName": {
+    "description": "Nome do colaborador da marcação"
+  },
+  "cardReceiptEmployeeCPF": "CPF",
+  "@cardReceiptEmployeeCPF": {
+    "description": "CPF do colaborador da marcação"
+  },
+  "cardReceiptCompanyName": "Empresa",
+  "@cardReceiptCompanyName": {
+    "description": "Nome da empresa da marcação"
+  },
+  "cardReceiptCompanyCNPJ": "CNPJ",
+  "@cardReceiptCompanyCNPJ": {
+    "description": "CNPJ da empresa da marcação"
+  },
+  "cardReceiptIdentification": "Identificação da Marcação",
+  "@cardReceiptIdentification": {
+    "description": "Código de identificação da marcação"
+  },
+  "hoursWorked": "Horas trabalhadas hoje",
+  "breaks": "Intervalos",
+  "lastClockingevent": "Última marcação",
+  "lastClockingevents": "Últimas marcações",
+  "breakTime": "Intervalo de %t",
+  "whenRegistered": "Quando registrar, elas aparecerão aqui",
+  "todaysClockinEvents": "Marcações de hoje",
+  "noClockingEvents": "Não há marcações registradas hoje",
+  "loading": "Carregando...",
+  "@loading": {
+    "description": "Mensagem indicativo de processamento"
+  },
+  "deviceSituation": "Situação do dispositivo",
+  "goToLogin": "Sair",
+  "deviceAuthorizationIsPending": "A função de Ponto não está ativada para este dispositivo devido à autorização pendente do RH.",
+  "deviceAuthorizationWasRejected": "A função de Ponto não está ativada para este dispositivo devido à autorização rejeitada pelo RH.",
+  "deviceActivationIsPending": "A função de Ponto não está ativada para este dispositivo devido à ativação pendente do RH.",
+  "deviceActivationWasRejected": "A função de Ponto não está ativada para este dispositivo devido à ativação rejeitada pelo RH.",
+  "clockingEventSingleNotAvailable": "A Marcação de ponto não está disponível para o modo individual para o seu usuário",
+  "contactRh": "Por favor, contate o RH ou se dirija a um dispositivo coletivo para registrar o ponto.",
+  "clockingEvents": "Marcações",
+  "rangeDate": "{fromDate} até {toDate}",
+  "@rangeDate": {
+    "description": "Texto com a data de início e fim de um período.",
+    "placeholders": {
+      "fromDate": {
+        "type": "String",
+        "example": "20/10/2018"
+      },
+      "toDate": {
+        "type": "String",
+        "example": "25/10/2018"
+      }
+    }
+  },
+  "menuItemHome": "Início",
+  "menuItemAppointment": "Marcações",
+  "menuItemTime": "Horas",
+  "menuItemProfile": "Perfil",
+  "clockingEventTitle": "Ponto",
+  "clockingEventGoodMorning": "Bom dia",
+  "clockingEventGoodAfternoon": "Boa tarde",
+  "clockingEventGoodEvening": "Boa noite",
+  "clockingEventCaptureTime": "Registrar ponto",
+  "clockingEventCapturingTime": "Realizando marcação",
+  "clockingEventKeepButtonPressedToRegister": "Mantenha o botão pressionado para registrar",
+  "clockingEventAppointmentMade": "Marcação Realizada",
+  "clockingEventSeeReceipt": "Ver comprovante",
+  "withoutClockingEvents": "Sem marcações",
+  "dateFormatter": "dd/MM/yyyy",
+  "period": "Período",
+  "oddClockingEvent": "Marcações ímpares",
+  "periodClockingEvent": "Marcações do período",
+  "lastUpdate": "Última atualização {date} às {hour}",
+  "@lastUpdate": {
+    "description": "Texto definindo a data da última atualização",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "20/10/2018"
+      },
+      "hour": {
+        "type": "String",
+        "example": "23:24"
+      }
+    }
+  },
+  "clockInfoTitle1": "Marcação não sincronizada",
+  "clockInfoDescription1": "São marcações que foram registradas e serão sincronizadas assim que houver conexão com a internet.",
+  "clockInfoTitle2": "Origem via celular e plataforma",
+  "clockInfoDescription2": "São marcações que foram registradas via aplicativo e plataforma. São categorizadas como marcação cross.",
+  "clockInfoTitle3": "Origem via celular",
+  "clockInfoDescription3": "São marcações que foram registradas via aplicativo tanto Ponto quanto Waapi.",
+  "clockInfoTitle4": "Origem via plataforma",
+  "clockInfoDescription4": "São marcações que foram registradas via plataforma.",
+  "clockInfoTitle5": "Marcação manual",
+  "clockInfoDescription5": "Marcações registradas manualmente pelo gestor ou colaborador através do app ou plataforma.",
+  "clockInfoTitle6": "Marcações ímpares",
+  "clockInfoDescription6": "Significa que falta uma marcação para sua jornada ficar completa, porém ela pode ter sido realizada em outro registrador de ponto.",
+  "clockInfoTitle7": "Marcações com afastamento",
+  "clockInfoDescription7": "São marcações que possuem algum afastamento lançado na jornada.",
+  "infoUnderstoodButton": "Entendi",
+  "registerCameraButton": "Registrar",
+  "clockingsOfTheDay": "Marcações do dia",
+  "addClocking": "Adicionar marcação",
+  "timeControlManagement": "Gestão do Ponto",
+  "centralizingJourney": "Centralizando a jornada do colaborador",
+  "haveControl": "Tenha o controle da sua jornada do ponto.",
+  "shortcutsTimeControl": "Atalhos para o Gestão do Ponto",
+  "recentClockingEventMessage": "Você marcou o ponto há menos de 2 minutos. Deseja realizar outra marcação?",
+  "outsideTheFenceMessage": "A localização atual está fora do perímetro definido pelo seu empregador. Deseja continuar?",
+  "alert": "Atenção",
+  "yes": "Sim",
+  "no": "Não",
+  "confirmAppointment": "Confirmar marcação",
+  "cancelAppointment": "Não realizar marcação",
+  "hoursWorkedTodayInfo": "A quantidade de horas é calculada quando existem marcações em pares (entrada e saída), portanto o total é atualizado apenas ao registrar o fim de um período.",
+  "syncClockingEventSyncSuccess": "Sincronização concluída.",
+  "syncClockingEventSyncInternetUnavailable": "Sincronização não concluída. Verifique sua conexão com a internet.",
+  "syncClockingEventSyncFailure": "Desculpe, ocorreu uma falha na sincronização. Tente novamente.",
+  "syncClockingEventSyncPartialSuccess": "Sincronização concluída parcialmente. Alguns registros não foram sincronizados. Verifique sua conexão com a internet e tente novamente.",
+  "configurations": "Configurações",
+  "completedAppointments": "Marcações registradas",
+  "setKey": "Configurar chave da aplicação",
+  "permissions": "Permissões",
+  "syncAppointInfo": "Sincronizar informações do ponto",
+  "resources": "Recursos",
+  "facialRecognitionRegistration": "Cadastro de reconhecimento facial",
+  "facialRecognitionRegistrationDescription": "Cadastrar reconhecimento facial de um novo colaborador",
+  "readWebQRCode": "Ler QRcode WEB",
+  "readWebQRCodeDescription": "Usar dispositivo para cadastrar reconhecimento facial de um novo colaborador",
+  "othersResources": "Outros",
+  "help": "Ajuda",
+  "helpCenter": "Central de ajuda",
+  "viewTourAgain": "Visualizar tour novamente",
+  "privacyPolicy": "Política de privacidade",
+  "about": "Sobre",
+  "signOut": "Sair",
+  "clockingEventNotAvailable": "A marcação de ponto não está disponível para seu usuário.",
+  "descriptionClockingEventNotAvailable": "Por favor, aguarde ou contate o RH para obter mais informações.",
+  "toView": "Visualizar",
+  "successClockingEvent": "Marcação realizada às {hour} no dia {date} para {name}",
+  "@successClockingEvent": {
+    "description": "Texto com mensagem de confirmação da marcação do ponto",
+    "placeholders": {
+      "hour": {
+        "type": "String",
+        "example": "23:24"
+      },
+      "date": {
+        "type": "String",
+        "example": "20/10/2018"
+      },
+      "name": {
+        "type": "String",
+        "example": "João Paulo"
+      }
+    }
+  },
+  "configurationReminders": "Configurar lembretes do ponto",
+  "configurationNotifications": "Configurar notificações",
+  "configurationRegisteredClock": "Marcações registradas",
+  "configurationReports": "Relatórios",
+  "configurationAppReview": "Avaliação do aplicativo",
+  "configurationSearch": "Pesquisa",
+  "configurationViewTourAgain": "Visualizar tour novamente",
+  "configurationSynchronizationSuccessfully": "Sincronização realizada com sucesso.",
+  "configurationSynchronizationError": "Não foi possível sincronizar as informações do ponto no momento. Tente novamente mais tarde.",
+  "hoursTitle": "Totalizador de horas",
+  "hoursTabTitle1": "Jornada do dia",
+  "hoursTabTitle2": "Saldo",
+  "hoursTabTitle3": "Espelho",
+  "facialTryAgain": "Tentar novamente",
+  "facialRegistrationCompletedSuccessfully": "Cadastro realizado com sucesso!",
+  "facialBackStart": "Voltar ao início",
+  "facialPerformingPhotoAnalysis": "Realizando análise da foto...",
+  "facialLooksLikeAreOffline": "Sem conexão com a internet",
+  "facialRegistrationOnlineCheckConnection": "O cadastramento inicial deve ser feito conectado à internet. Verifique sua conexão e tente novamente.",
+  "facialCheckingInformation": "Verificando informações...",
+  "facialTipsFacialRecognition": "Dicas para o reconhecimento facial",
+  "facialFollowInstructionsCapture": "Siga as instruções para uma boa captura",
+  "facialPositionCellPhoneEyeCamera": "Posicione o celular na altura dos seus olhos e olhe diretamente para a câmera;",
+  "facialBeBrightEnvironmentPeopleBackground": "Esteja em um ambiente iluminado, sem pessoas e objetos ao fundo;",
+  "facialAvoidWearingAccessoriesGlasses": "Evite usar acessórios que escondam seu rosto, como óculos, bonés, máscaras e chapéus;",
+  "facialAvoidShakingYourCellPhone": "Evite tremer o seu celular durante a captura;",
+  "facialAvoidMakingFacesOrExpressions": "Evite fazer caretas ou expressões que possam interferir na qualidade da captura;",
+  "facialIfNecessaryAskHelpCamera": "Se achar necessário, peça ajuda a outra pessoa e ative a câmera traseira do seu celular.",
+  "facialStartReconnaissance": "Iniciar reconhecimento",
+  "facialPhotoCapture": "Captura de foto",
+  "facialPositionFaceToCapture": "Posicione o rosto para capturar",
+  "facialFacialRecognition": "Reconhecimento facial",
+  "facialFacialRecognitionMultiMode": "Registrar por rosto",
+  "recognitionMultiModeInProgress": "Aguarde...",
+  "recognitionMultiModeDoSync": "Não encontramos nenhuma face cadastrada. Realize o cadastramento de faces ou sincronização para prosseguir com a marcação.",
+  "facialModalAlertTitle": "Tem certeza que deseja registrar sem reconhecimento da face?",
+  "facialModalAlertTryOtherWay": "Tentar outra forma",
+  "facialModalAlertTryOtherWayDescription": "Caso não consigo realizar o registro por reconhecimento facial tente outra forma para registrar sua marcação",
+  "facialModalAlertContent": "A marcação de ponto será realizada sem registro do reconhecimento facial.",
+  "facialModalAlertBackButton": "Voltar",
+  "facialModalAlertProceedButton": "Registrar sem face",
+  "facialInitTechnologyTitle": "Inicializando tecnologia",
+  "facialInitTechnologyContent": "Enquanto é iniciada a tecnologia de reconhecimento facial, a marcação de ponto será feita sem a identificação de face.",
+  "facialRecognitionRegistrationQuestion": "Realizar o cadastro de reconhecimento facial?",
+  "facialRecognitionRegistrationInformation": "Você ainda não cadastrou seu rosto para registro do ponto com reconhecimento facial. Cadastre agora e garanta mais segurança e agilidade dos seus dados.",
+  "facialRegisterNow": "Cadastrar agora",
+  "facialCouldNotanalyzePhoto": "Não foi possível analisar a foto",
+  "facialTryAgainLater": "Tente novamente ou aguarde alguns instantes para repetir a ação.",
+  "facialNotIdentifiedFace": "Rosto não identificado",
+  "facialLowQualityPhoto": "A foto está com baixa qualidade ou desfocada.",
+  "facialFaceIsntVisible": "Certifique-se de que seu rosto esteja visível e dentro do enquadramento e tente novamente.",
+  "facialRecognitionRegistrationSoonAvailable": "Dentro de alguns minutos a marcação por reconhecimento facial já estará disponível para você.",
+  "facialFaceAlreadyRegistered": "Rosto já cadastrado!",
+  "facialRecognitionRegistrationAvailable": "A marcação por reconhecimento facial já está disponível.",
+  "facialRecognitionRegistrationEmployee": "Cadastro reconhecimento facial",
+  "facialSelectEmployeeTitle": "Selecione o colaborador que deseja cadastrar o reconhecimento facial",
+  "enterRrSearchForTheCollaborator": "Digite ou busque o colaborador",
+  "employeeList": "Lista de colaboradores",
+  "continueText": "Continuar",
+  "collaborator": "Colaborador",
+  "userWithoutPermission": "Usuário sem permissão",
+  "userWithoutPermissionDescription": "Por favor, contate o RH para verificar a permissão do seu usuário.",
+  "unresponsiveService": "Serviço sem resposta",
+  "unresponsiveServiceDescription": "Não foi possivel estabelecer uma conexão com o serviço de marcação de ponto.",
+  "facialUserNoPermissionTitle": "Usuário sem permissão",
+  "facialUserNoPermissionMessage": "Por favor, contate o RH para verificar a permissão do seu usuário.",
+  "registerWithoutConfirm": "Tem certeza que deseja registrar sem a confirmação?",
+  "willRegisterWithoutPhoto": "O registro de ponto será realizado sem a confirmação de foto.",
+  "registerWithoutPhoto": "Registrar sem foto",
+  "reRegister": "Recadastrar",
+  "permissionCameraNotAllowedMessage": "Para utilizar o reconhecimento facial e captura de foto após marcação, é necessário permitir acesso à câmera do dispositivo. Essa informação não é obrigatória, mas complementa seu registro.",
+  "permissionLocationNotAllowedMessage": "Recomendamos adicionar o local à sua marcação de ponto, para isso é necessário permitir acesso à localização do dispositivo. Essa informação não é obrigatória, mas complementa seu registro.",
+  "goToConfiguration": "Permissões",
+  "continueAction": "Continuar",
+  "deviceSettings": "Configurações do dispositivo",
+  "setPushNotification": "Configurar notificações por push",
+  "appReview": "Avaliação do aplicativo",
+  "searchApp": "Pesquisa",
+  "applicationKeyHelpTitle": "Entenda a configuração de chave para o dispositivo móvel",
+  "applicationKeyHelpContent1": "Cadastre a chave de aplicação na Plataforma Senior X",
+  "applicationKeyHelpContent2": "Adicione as informações de chave e segredo para a aplicação cadastrada, que será responsável pela comunicação da Plataforma Senior X com o Marcação de Ponto 2.0;",
+  "applicationKeyHelpContent3": "Se você tem certeza de que as informações estão corretas e ainda estiver enfrentando problemas para entrar no aplicativo, verifique com o RH da sua empresa.",
+  "keyAlreadyRegistered": "Chave já cadastrada!",
+  "registerNewkey": "Registrar nova chave",
+  "keyAlreadyRegisteredDescription": "Você pode remover a chave com a ação abaixo.",
+  "keyAlreadyRegisteredRemove": "Remover chave",
+  "helpTextDocumentationPortal": "Portal de documentação",
+  "keyRegisteredSuccessfully": "Chave cadastrada com sucesso!",
+  "keyRegisteredSuccessfullyDescription": "Os recursos estarão disponíveis para uso na home.",
+  "keyRegisteredSuccessfullyBackHome": "Voltar ao início",
+  "searchEmployee": "Buscar colaborador",
+  "selectPeriodToFilter": "Selecione um período para filtrar",
+  "change": "Trocar",
+  "init": "Inicial",
+  "end": "Final",
+  "filter": "Filtrar",
+  "cancel": "Cancelar",
+  "invalidDate": "Data inválida",
+  "invalidDateFormat": "Formato da data inválido",
+  "moreThanEndDate": "Maior que a data final",
+  "lessThanStartDate": "Menor que a data inicial",
+  "driversJourney": "Jornada do motorista",
+  "workStatus": "Status de trabalho",
+  "notStarted": "Não iniciado",
+  "working": "Trabalhando",
+  "driving": "Dirigindo",
+  "mandatoryBreak": "Pausa obrigatória",
+  "foodTime": "Intervalo",
+  "waiting": "Espera",
+  "actions": "Ações",
+  "startDrivingWithLineBreak": "Iniciar\ndireção",
+  "startMandatoryBreakWithLineBreak": "Iniciar pausa\nobrigatória",
+  "startWaitingWithLineBreak": "Iniciar\nespera",
+  "startFoodTimeWithLineBreak": "Iniciar\nintervalo",
+  "startJourney": "Iniciar jornada",
+  "newJourney": "Nova jornada",
+  "stopDriving": "Encerrar direção",
+  "stopMandatoryBreak": "Encerrar pausa",
+  "stopFoodTime": "Encerrar intervalo",
+  "stopWaiting": "Encerrar espera",
+  "journeyStart": "Início da jornada",
+  "numberOfPauses": "Número de pausas",
+  "totalWorked": "Total trabalhado",
+  "totalWorkedInfo": "Tempo atualizado do total trabalhado do início da jornada até o momento. Não inclui pausas obrigatórias e refeições. Caso o valor total esteja zerado e vermelho, significa que a jornada contém marcações impares.",
+  "timeInWorking": "Tempo trabalhando",
+  "timeInDriving": "Tempo dirigindo",
+  "timeInMandatoryBreak": "Tempo em pausa obrigatória",
+  "timeInFoodTime": "Tempo em intervalo",
+  "timeInWaiting": "Tempo em espera",
+  "hours": "horas",
+  "minutes": "min",
+  "seconds": "seg",
+  "workingStatusDescription": "Jornada de trabalho decorrida desde o início da jornada, independente dos status específicos que foram registrados.",
+  "deviceLocation": "Localização do dispositivo",
+  "deviceLocationDescription": "Permite determinar a localização geográfica do dispositivo no momento das marcações.",
+  "drive": "Direção",
+  "drivingStatusDescription": "Tempo de condução do veículo durante a jornada do dia.",
+  "mandatoryBreakStatusDescription": "A pausa obrigatória é importante para prevenir a fadiga e assegurar viagens mais seguras, é contado como parte da sua jornada.",
+  "foodTimeOrBreaks": "Refeição ou intervalos",
+  "foodTimeStatusDescription": "Assim como a pausa, os intervalos principais para refeição são importantes para evitar cansaço e fadiga. Esses intervalos não contam como tempo trabalhado.",
+  "waitingTime": "Tempo de espera",
+  "waitingStatusDescription": "Os períodos de espera indicam um período sem movimento do veículo, mas que necessitam do acompanhamento do motorista, como fila de balança, carga e descarga do caminhão, dentre outros.",
+  "overnight": "Pernoite",
+  "overnightDescription": "Registra a estada/pernoite durante uma viagem mais extensa para descanso entre uma jornada e outra.",
+  "paidBreak": "Pausa abonada",
+  "paidBreakStatusDescription": "Este intervalo é considerado como tempo de trabalho e, portanto, não resulta em redução do salário do empregado.",
+  "mainTimeClocking": "Marcação de ponto",
+  "mainTimeClockingDescription": "Marcações de ponto (de entrada ou saída) registradas.",
+  "hoursWorkedInfo": "Total atualizado ao registrar entrada e saída. Inclui tempo de trabalho, direção e espera.",
+  "timeInBreaks": "Tempo em pausas",
+  "breaksInfo": "Total atualizado ao registrar início e fim. Inclui pausas obrigatórias e refeição.",
+  "moreDetails": "Mais detalhes",
+  "betweenTimes": "De {startTime} até {endTime}, total de {totalTime}",
+  "@betweenTimes": {
+    "description": "Texto para exibir 2 horários e o total entre os 2",
+    "placeholders": {
+      "startTime": {
+        "type": "String",
+        "example": "08:00"
+      },
+      "endTime": {
+        "type": "String",
+        "example": "12:15"
+      },
+      "totalTime": {
+        "type": "String",
+        "example": "04horas 15min"
+      }
+    }
+  },
+  "totalsOfTheDay": "Totalizadores do dia",
+  "foodTimeStatusDescriptionModal": "O intervalo dentro de uma jornada é destinado, normalmente, para refeições, mas também é muito importante para evitar fadiga. Em algumas jornadas podem existir mais de um intervalo.",
+  "wasThisInformationHelpful": "Esta informação foi útil?",
+  "enableLogs": "Ativar logs",
+  "disableLogs": "Desativar logs",
+  "logsDisabled": "Logs desativados",
+  "logsEnabled": "Logs ativados",
+  "sendLogs": "Enviar logs",
+  "successfulSyncLogs": "Sucesso ao sincronizar os logs",
+  "partialSuccessSyncLogs":"Sucesso parcial ao sincronizar os logs",
+  "faliedSyncLogs": "Falha ao sincronizar os logs",
+  "unexpectedErrorSyncLogs": "Erro inesperado ao sincronizar os logs",
+  "notLogsToSync": "Não existem logs para sincronizar",
+  "aboutScreenAppTitle": "Aplicativo",
+  "aboutScreenVersion": "Versão",
+  "aboutScreenDeviceTitle": "Dispositivo",
+  "aboutScreenIdentifier": "Identificador",
+  "aboutScreenModel": "Modelo",
+  "aboutScreenName": "Nome",
+  "aboutScreenDevelopedBy": "Desenvolvido por",
+  "removeFilter": "Limpar",
+  "checkConnectivityForKeys": "A chave de aplicação deve ser gerenciada de forma online. Verifique sua conexão e tente novamente.",
+  "selectTheStartingDate": "Selecione a data de início",
+  "selectTheEndDate": "Selecione a data final",
+  "reminderClockingEventMessageIntraJourney": "Você marcou o ponto há menos de {reminderTime}. No intervalo para descanso e refeição importante completar o período mínimo antes de retornar ao trabalho.",
+  "reminderClockingEventMessageInterJourney": "Você marcou o ponto há menos de {reminderTime}. No intervalo para descanso entre jornadas é importante completar o período mínimo antes de retornar ao trabalho.",
+  "warning": "Aviso",
+  "registerKeyOnSyncLogs": "Os logs só podem ser enviados se houver uma chave de aplicação configurada",
+  "hasNoConnectivityToSync": "Sem conexão para realizar a sincronia de dados.",
+  "unableToSyncClockingEvents": "Não foi possível sincronizar marcações",
+  "syncUnsuccessful": "Sincronização não sucedida",
+  "reason": "Motivo:\n{reason}",
+  "@reason": {
+    "description": "Texto com algum motivo",
+    "placeholders": {
+      "reason": {
+        "type": "String",
+        "example": "Sem conexão com a internet"
+      }
+    }
+  },
+  "unsyncedClockingEvents": "Marcações não sincronizadas",
+  "syncClockingEventsBeforeRemoveKeys": "Existem marcações não sincronizadas. Faça a sincronização antes de remover a chave.",
+  "confirmRemoveKeys": "Tem certeza que deseja remover?\nSerá desvinculada a conta de sua empresa e todas as informações dos colaboradores, assim como marcações, serão removidas do dispositivo.",
+  "loadingUnsyncedClockingEvents": "Buscando marcações não sincronizadas...",
+  "verifiyngConnectivity": "Verificando conexão com a internet...",
+  "syncingClockingEvents": "Sincronizando marcações...",
+  "removingKeys": "Removendo chaves...",
+  "keysNotRemoved": "Chaves não removidas",
+  "keysRemovedUnsuccessfully": "Não foi possível fazer a remoção completa das chaves. Tente novamente.",
+  "keysRemoved": "Chaves removidas",
+  "keysRemovedSuccessfully": "As chaves foram removidas com sucesso.",
+  "initJourney": "Iniciar jornada?",
+  "initJourneyBeforeStartAction": "Nenhuma jornada em andamento, deseja iniciar uma jornada antes de prosseguir?",
+  "initMyJourney": "Iniciar minha jornada",
+  "manualRegistration": "Registro manual",
+  "ok": "Ok",
+  "continueRegistration": "Deseja continuar o registro?",
+  "wantToStartJourney": "Deseja iniciar jornada?",
+  "startJourneyBeforeStartAction": "Ainda não foi realizada uma marcação de início de jornada. Deseja começar agora antes de registrar {action}?",
+  "@startJourneyBeforeStartAction": {
+    "description": "Texto perguntando se deseja iniciar a jornada antes de iniciar a ação",
+    "placeholders": {
+      "action": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "journeyStartedBeforeAction": "Jornada e {actionLabel} iniciado(a) com sucesso.",
+  "@journeyStartedBeforeAction": {
+    "description": "Texto informando que a jornada e a ação foram iniciadas",
+    "placeholders": {
+      "actionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "actionStartedWithoutJourney": "{actionLabel} iniciado(a), mas a jornada não. Um ajuste manual deverá ser realizado posteriormente.",
+  "@actionStartedWithoutJourney": {
+    "description": "Texto informando que a ação foi iniciada sem a jornada",
+    "placeholders": {
+      "actionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "finishCurrentActionBeforeStartNextAction": "Deseja finalizar {currentActionLabel} antes de iniciar {nextActionLabel} na sequência?",
+  "@finishCurrentActionBeforeStartNextAction": {
+    "description": "Texto perguntando se deseja finalizar a ação atual antes de iniciar a próxima",
+    "placeholders": {
+      "currentActionLabel": {
+        "type": "String",
+        "example": "Direção"
+      },
+      "nextActionLabel": {
+        "type": "String",
+        "example": "Parada obrigatória"
+      }
+    }
+  },
+  "newActionStartedAndPreviousDoesNot": "{newActionLabel} iniciado(a) e {previousActionLabel} não finalizado(a) pela aplicação. Faça o ajuste manual posteriormente, se necessário.",
+  "@newActionStartedAndPreviousDoesNot": {
+    "description": "Texto informando que a nova ação foi iniciada e a anterior não foi finalizada",
+    "placeholders": {
+      "newActionLabel": {
+        "type": "String",
+        "example": "Parada obrigatória"
+      },
+      "previousActionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "previousActionFinishedAndNewStarted": "{previousActionLabel} finalizado(a) e {newActionLabel} iniciado(a) com sucesso.",
+  "@previousActionFinishedAndNewStarted": {
+    "description": "Texto informando que a ação anterior foi finalizada e a nova foi iniciada",
+    "placeholders": {
+      "previousActionLabel": {
+        "type": "String",
+        "example": "Direção"
+      },
+      "newActionLabel": {
+        "type": "String",
+        "example": "Parada obrigatória"
+      }
+    }
+  },
+  "closeActionBeforeEndJourney": "Deseja finalizar {actionLabel} antes de encerrar a jornada?",
+  "@closeActionBeforeEndJourney": {
+    "description": "Texto perguntando se deseja finalizar a ação antes de encerrar a jornada",
+    "placeholders": {
+      "actionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "previousActionClosedAndJourneyEnded": "{actionLabel} e jornada finalizada com sucesso.",
+  "@previousActionClosedAndJourneyEnded": {
+    "description": "Texto informando que a ação e a jornada foram finalizadas",
+    "placeholders": {
+      "actionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "journeyFinishedAndPreviousActionDoesNot": "Jornada finalizada, mas {actionLabel} não. Um ajuste manual deverá ser realizado posteriormente.",
+  "@journeyFinishedAndPreviousActionDoesNot": {
+    "description": "Texto informando que a jornada foi finalizada, mas a ação não",
+    "placeholders": {
+      "actionLabel": {
+        "type": "String",
+        "example": "Direção"
+      }
+    }
+  },
+  "finish": "Finalizar",
+  "start": "Iniciar",
+  "sureStartNewJourney": "Tem certeza que deseja iniciar uma nova jornada?",
+  "previousJourneyStillRunning": "A jornada anterior ainda está em andamento. Se prosseguir, a marcação de finalização deverá ser inserida de forma manual posteriormente.",
+  "finishJourney": "Finalizar jornada",
+  "wantRegisterOvernight": "Deseja registrar pernoite?",
+  "reportOvernightAfterJourney": "Informe a ocorrência de pernoite para descanso após essa jornada, caso seja necessário.",
+  "registerOvernight": "Registrar pernoite",
+  "startOf": "Início de ",
+  "endOf": "Fim de ",
+  "work": "Trabalho",
+  "abbreviatedHour": "h",
+  "addOvernightButton": "Adicionar pernoite",
+  "overnightAddedSuccessfully": "Pernoite adicionado com sucesso",
+  "overnightAddedError": "Erro ao adicionar pernoite",
+  "journey": "Jornada",
+  "cameraPermission": "Câmera",
+  "cameraPermissionDescription": "Permissão para acessar a câmera. Usamos esse recurso para conseguir capturar foto do colaborador, leitura de QR code ou para realizar o reconhecimento facial.",
+  "gpsPermission": "GPS",
+  "gpsPermissionDescription": "Permissão para acessar o GPS. Usamos esse recurso para identificar o local que as marcações são registradas.",
+  "nfcPermission": "NFC",
+  "nfcPermissionDescription": "Recurso de NFC, usamos esse recurso quando o modo aproximação esta ativo pelo empregador para conseguir realizar os registro das marcações.",
+  "deviceConfigurationPermission": "Permissões do dispositivo",
+  "privacyCenter": "Central de privacidade",
+  "privacyPolicies": "Políticas de privacidade",
+  "info": "Informações",
+  "viewDate": "Data de visualização",
+  "facialRegistrationCompleted": "Marcação realizada",
+  "facialCaceledRegistration": "Marcação cancelada",
+  "facialRegistering": "Aguarde...",
+  "facialCollaboratorNotFound": "Colaborador não encontrado ou inativo",
+  "noFaceRegistered": "Nenhum rosto cadastrado",
+  "offlineFeatureUnavailable": "Esta funcionalidade não está disponível enquanto estiver offline. Verifique sua conexão.",
+  "titleNotifications": "Notificações",
+  "notificationErrorNextPage": "Ocorreu um erro ao carregar as próximas notificações. Toque em Repetir para tentar novamente.",
+  "repeat": "Repetir",
+  "notificationErrorState": "Não foi possível obter suas notificações",
+  "notificationErrorStateDescription": "O sistema apresentou um erro interno e, por isso, não foi possível recuperar suas notificações. Aguarde alguns instantes e para repetir esta ação, toque em Tentar novamente.",
+  "notificationNotReceivedTitle": "Você ainda não recebeu notificações.",
+  "notificationNotReceivedDescription": "Quando você receber uma notificação, ela ficará disponível aqui para consulta.",
+  "latestNotifications": "Últimas notificações",
+  "optionCancel": "Cancelar",
+  "errorMarkNotificationAsRead": "Ocorreu um erro ao marcar sua notificação como lida. Toque em Repetir para tentar novamente.",
+  "featureIsNotAvailableOffline": "Esta funcionalidade não está disponível enquanto estiver offline. Verifique sua conexão.",
+  "selectItem": "Selecionar",
+  "facialMsgStatusVeryBlurryImage": "A foto está fora de foco ou o rosto está em movimento. Tente novamente.",
+  "facialMsgStatusMoreThanOneFaceFoundInTheImage": "Somente um rosto deve aparecer na foto de cadastro.",
+  "facialMsgStatusFacesNotFoundInTheImage": "Nenhum rosto foi encontrado com aparecimento suficiente na imagem. Tente novamente.",
+  "facialMsgStatusNonFrontalFace": "Posicione o rosto de forma frontal e olhe diretamente para a câmera.",
+  "facialMsgStatusPoorQualityImage": "A imagem tem baixa resolução, ruído ou iluminação inadequada.",
+  "facialMsgStatusVerySmallFaceInTheImage": "Aproxime mais seu rosto da câmera.",
+  "facialMsgStatusFaceTooCloseToTheEdgeOfTheImage": "Centralize o rosto na tela e tente novamente.",
+  "facialMsgStatusEvidenceOfFraud": "A imagem não atendeu aos requisitos de autenticidade. Tente novamente.",
+  "facialMsgStatusIdsWithCloseImagesWereFound": "O rosto parece semelhante a outra pessoa na base de dados. Evite duplicidade cadastral.",
+  "facialMsgStatusGlassesDetectedOrTooMuchEyeShadow": "Remova os óculos ou ajuste a iluminação para evitar sombras nos olhos.",
+  "facialMsgStatusLowConfidenceFaceDetection": "O sistema não conseguiu detectar um rosto com confiança suficiente. Tente novamente.",
+  "facialTitleStatusVeryBlurryImage": "Imagem muito borrada",
+  "facialTitleStatusMoreThanOneFaceFoundInTheImage": "Mais de um rosto detectado",
+  "facialTitleStatusFacesNotFoundInTheImage": "Rosto não detectado",
+  "facialTitleStatusNonFrontalFace": "Rosto fora de posição",
+  "facialTitleStatusPoorQualityImage": "Imagem com baixa qualidade",
+  "facialTitleStatusVerySmallFaceInTheImage": "Rosto pequeno na imagem",
+  "facialTitleStatusFaceTooCloseToTheEdgeOfTheImage": "Rosto próximo à borda",
+  "facialTitleStatusEvidenceOfFraud": "Possível fraude detectada",
+  "facialTitleStatusIdsWithCloseImagesWereFound": "Similaridade com outros rostos",
+  "facialTitleStatusGlassesDetectedOrTooMuchEyeShadow": "Óculos ou sombras nos olhos",
+  "facialTitleStatusLowConfidenceFaceDetection": "Baixa confiança na face",
+  "privacy_police_change": "Atualizamos a nossa política de privacidade",
+  "privacy_police_change_subtitle": "Clique para visualizar ou consulte a qualquer momento no menu Configurações > Política de privacidade.",
+  "reRegisterApplicationKey": "Consultar chave de aplicação",
+  "errorAuthenticatingApplicationKey": "Erro ao autenticar chave de aplicação.",
+  "authenticating": "Autenticando...",
+  "authenticationFailure": "Falha de Autenticação",
+  "errorWhileAuthenticatingApplicationKey": "Ocorreu um erro ao autenticar a chave de aplicação cadastrada neste dispositivo.",
+  "recognitionBlocked": "Reconhecimento bloqueado, aguarde",
+  "secondsFullName": "segundos",
+  "totalTimeSinceLastJourney": "Tempo desde a última jornada",
+  "userNameScreenTitle": "Entrar com credenciais"
+}

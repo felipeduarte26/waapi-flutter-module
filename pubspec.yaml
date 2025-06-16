@@ -1,0 +1,124 @@
+name: waapi_module
+description: "A Waapi module for Wiipo project."
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.3.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  cached_network_image: ^3.4.1
+  connectivity_plus: ^4.0.2
+  dio: ^5.7.0
+  equatable: ^2.0.7
+  firebase_analytics: ^10.10.7
+  firebase_core: ^2.32.0
+  firebase_crashlytics: ^3.5.7
+  firebase_messaging: ^14.7.10
+  flutter_bloc: ^8.1.6
+  flutter_inappwebview: ^6.1.5
+  flutter_modular: ^5.0.3
+  flutter_pdfview: ^1.4.0
+  flutter_svg: ^2.0.17
+  font_awesome_flutter: ^10.8.0
+  in_app_review: ^2.0.10
+  intl: ^0.19.0
+  package_info_plus: ^8.1.2
+  path_provider: ^2.1.5
+  permission_handler: ^11.3.1
+  provider: ^6.1.2
+  rive: ^0.13.20
+  rxdart: ^0.28.0
+  senior_design_tokens: ^3.0.1
+  modular_bloc_bind: ^1.0.1
+  senior_design_system: ^10.1.1
+  senior_platform_authentication_ui: ^11.1.1
+  share_plus: ^10.1.3
+  shared_preferences: ^2.3.5
+  url_launcher: ^6.3.1
+  pdf: ^3.11.1
+  printing: ^5.13.4
+  animate_do: ^3.3.4
+  open_file: ^3.5.10
+  uuid: ^4.5.1
+  image: ^4.2.0
+  file_picker: ^8.1.7
+  pod_player: ^0.2.2
+  image_cropper: ^8.0.2
+
+
+  ponto_mobile_collector:
+    git:
+      url: https://git.senior.com.br/gestao-ponto/ponto-mobile-collector.git
+      ref: v1-1-3
+
+
+
+dependency_overrides:
+  font_awesome_flutter:
+    path: ./packages/font_awesome_flutter
+  pod_player:
+    path: ./packages/pod_player
+  ponto_mobile_collector:
+    path: ./packages/ponto-mobile-collector
+  senior_platform_authentication_ui:
+    path: ./packages/senior-platform-authentication-ui
+  senior_design_system:
+    path: ./packages/senior-design-system
+  senior_design_tokens: 
+    path: ./packages/senior-design-tokens  
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.4
+  http_mock_adapter: ^0.6.1
+  mocktail: ^1.0.4
+  bloc_test: ^9.1.7
+  nfc_manager: ^3.5.0
+
+
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  
+  fonts:
+  - family:  MoneyIcons
+    fonts:
+      - asset: assets/icons/moneyIcons.ttf
+  - family:  Arial
+    fonts:
+      - asset: assets/fonts/arial.ttf
+      - asset: assets/fonts/arial-bold.ttf
+  - family: OpenSans
+    fonts:
+      - asset: assets/fonts/OpenSans-Regular.ttf
+      - asset: assets/fonts/OpenSans-Bold.ttf
+      - asset: assets/fonts/OpenSans-Italic.ttf
+      - asset: assets/fonts/OpenSans-BoldItalic.ttf
+  - family: ProductSans
+    fonts:
+      - asset: assets/fonts/ProductSans-Regular.ttf   
+      - asset: assets/fonts/ProductSans-Bold.ttf
+
+  assets:
+    - assets/icons/
+    - assets/animations/
+    - assets/onboarding/
+    - assets/tour/
+    - assets/states/
+    - assets/happinessindex/
+    - assets/test/image/mock_image_test.jpg
+
+  module:
+    androidX: true
+    androidPackage: com.wiipo.waapi_module
+    iosBundleIdentifier: com.wiipo.waapiModule

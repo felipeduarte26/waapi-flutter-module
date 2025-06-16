@@ -1,0 +1,162 @@
+{
+	"dart_class": {
+		"prefix": "dart_class",
+		"body": [
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+			"  $1",
+			"}",
+			"",
+		],
+		"description": "Create a simple Dart class."
+	},
+	"dart_class_implements": {
+		"prefix": "dart_class_implements",
+		"body": [
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} implements $1 {",
+			"  $2",
+			"}",
+			"",
+		],
+		"description": "Creates a Dart class that will implement some other."
+	},
+	"dart_interface": {
+		"prefix": "dart_interface",
+		"body": [
+			"abstract class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} {",
+			"  $1",
+			"}",
+			"",
+		],
+		"description": "Creates a simple Dart abstract class (interface)."
+	},
+	"dart_class_extends": {
+		"prefix": "dart_class_extends",
+		"body": [
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends $1 {",
+			"  $2",
+			"}",
+			"",
+		],
+		"description": "Creates a Dart class that will extends some other."
+	},
+	"dart_class_extends_equatable": {
+		"prefix": "dart_class_extends_equatable",
+		"body": [
+			"import 'package:equatable/equatable.dart';",
+			"",
+			"class ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} extends Equatable {",
+			"  $1",
+			"  @override",
+			"  List<Object> get props {",
+			"    return [];",
+			"  }",
+			"}",
+			"",
+		],
+		"description": "Creates a Dart class that extends Equatable."
+	},
+	"dart_private_constructor": {
+		"prefix": "dart_private_constructor",
+		"body": [
+			"${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}._();"
+		],
+		"description": "Creates a private constructor for the class"
+	},
+	"dart_test_structure": {
+		"prefix": "dart_test_structure",
+		"body": [
+			"import 'package:flutter_test/flutter_test.dart';",
+			"",
+			"void main() {",
+			"",
+			"  setUp((){});",
+			"",
+			"  group('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}', () {",
+			"    test('Should $1 when $2', () {",
+			"       // Arrange",
+			"       $3",
+			"       // Act",
+			"       // Asserts",
+			"    });",
+			"  });",
+			"}",
+			"",
+		],
+		"description": "Creates a Dart test base structure."
+	},
+	"dart_test_structure_async": {
+		"prefix": "dart_test_structure_async",
+		"body": [
+			"import 'package:flutter_test/flutter_test.dart';",
+			"",
+			"void main() {",
+			"",
+			"  setUp((){});",
+			"",
+			"  group('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}', () {",
+			"    test('Should $1 when $2', () async {",
+			"       // Arrange",
+			"       $3",
+			"       // Act",
+			"       // Asserts",
+			"    });",
+			"  });",
+			"}",
+			"",
+		],
+		"description": "Creates a Dart test base structure with async enabled."
+	},
+	"dart_test_group": {
+		"prefix": "dart_test_group",
+		"body": [
+			"group('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}', () {",
+			"  test('Should $1 when $2', () {",
+			"     // Arrange",
+			"     $3",
+			"     // Act",
+			"     // Asserts",
+			"  });",
+			"});",
+		],
+		"description": "Creates a Dart test group."
+	},
+	"dart_test_group_async": {
+		"prefix": "dart_test_group_async",
+		"body": [
+			"group('${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}', () {",
+			"  test('Should $1 when $2', () async {",
+			"     // Arrange",
+			"     $3",
+			"     // Act",
+			"     // Asserts",
+			"  });",
+			"});",
+		],
+		"description": "Creates a Dart test group with async enabled."
+	},
+	"dart_test": {
+		"prefix": "dart_test",
+		"body": [
+			"test('Should $1 when $2', () {",
+			"   // Arrange",
+			"   $3",
+			"   // Act",
+			"   // Asserts",
+			"});",
+		],
+		"description": "Creates a Dart test."
+	}
+	,
+	"dart_test_async": {
+		"prefix": "dart_test_async",
+		"body": [
+			"test('Should $1 when $2', () async {",
+			"   // Arrange",
+			"   $3",
+			"   // Act",
+			"   // Asserts",
+			"});",
+		],
+		"description": "Creates a Dart test with async enabled."
+	}
+}

@@ -1,0 +1,63 @@
+stages:
+- validation
+- sonar
+- release
+
+workflow:
+  rules:
+  - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+    when: never
+  - when: always
+
+default:
+  tags:
+  - flutter
+
+validation:
+  stage: validation
+  script:
+  - python3 senior-ci/mobile/flutter/libs -v
+  except:
+  - develop
+  - master
+  - tags
+
+scanner:
+  stage: sonar
+  script:
+  - python3 senior-ci/mobile/flutter/libs -x
+  only:
+  - branches
+  - merge_requests
+
+releasePatch:
+  stage: release
+  when: manual
+  script:
+  - python3 senior-ci/mobile/flutter/libs -r patch
+  only:
+  - develop
+
+releaseMinor:
+  stage: release
+  when: manual
+  script:
+  - python3 senior-ci/mobile/flutter/libs -r minor
+  only:
+  - develop
+
+releaseMajor:
+  stage: release
+  when: manual
+  script:
+  - python3 senior-ci/mobile/flutter/libs -r major
+  only:
+  - develop
+
+package:
+  stage: release
+  when: manual
+  script:
+  - python3 senior-ci/mobile/flutter/libs -p
+  only:
+  - tags

@@ -1,0 +1,4 @@
+enum VacationDocumentStatusEnum {
+  inSignature,
+  signed,
+}

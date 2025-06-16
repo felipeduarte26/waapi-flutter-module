@@ -1,0 +1,15 @@
+enum VisaTypeEnum {
+  permanent,
+  temporary,
+  exiled,
+  refugee,
+  requestingRefuge,
+  boundaryCountryResident,
+  disabledPerson,
+  temporaryResidentIrregular,
+  permanentResidentChildren,
+  mercosulBenefit,
+  diplomacy,
+  friendshipTreatyPortugal,
+  othercondition,
+}

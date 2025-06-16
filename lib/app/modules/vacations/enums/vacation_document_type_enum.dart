@@ -1,0 +1,4 @@
+enum VacationDocumentTypeEnum {
+  vacationReceipt,
+  vacationNotice,
+}

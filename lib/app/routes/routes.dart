@@ -1,0 +1,15 @@
+export 'app_routes.dart';
+export 'authentication_routes.dart';
+export 'feedback_routes.dart';
+export 'financial_data_routes.dart';
+export 'help_routes.dart';
+export 'home_routes.dart';
+export 'management_panel_routes.dart';
+export 'notification_routes.dart';
+export 'onboarding_routes.dart';
+export 'privacy_policy_routes.dart';
+export 'profile_routes.dart';
+export 'search_person_routes.dart';
+export 'settings_routes.dart';
+export 'social_routers.dart';
+export 'vacations_routes.dart';

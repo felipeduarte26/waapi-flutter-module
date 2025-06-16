@@ -1,0 +1,15 @@
+enum DocumentTypeEnum {
+  cpf,
+  rg,
+  voterRegistrationCard,
+  ctps,
+  cnh,
+  passport,
+  ric,
+  nis,
+  cdi,
+  cns,
+  rne,
+  visa,
+  civilCertificate,
+}

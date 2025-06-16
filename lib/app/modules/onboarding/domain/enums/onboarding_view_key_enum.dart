@@ -1,0 +1,4 @@
+enum OnboardingViewKeyEnum {
+  onboarding,
+  tour,
+}

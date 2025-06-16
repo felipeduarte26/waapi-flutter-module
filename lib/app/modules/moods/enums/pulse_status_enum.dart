@@ -1,0 +1,4 @@
+enum PulseStatusEnum {
+  pulseAnswered,
+  pulseNotActive,
+}

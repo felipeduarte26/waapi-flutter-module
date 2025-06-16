@@ -1,0 +1,107 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "waapi (debug-dev)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define",
+                "FIREBASE_ENVIRONMENT=development",
+                "--dart-define",
+                "PLATFORM_URL_BASE=https://cloud-leaf.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+                "--dart-define",
+                "HCM_API_URL_BASE=https://pc011555.interno.senior.com.br:8443/hcm-api",
+                "--dart-define",
+                "SHOW_DEBUG_BANNER=true",
+                "--dart-define",
+                "ENCRYPTION_KEY=WM2OYCimkNhQaoNOmuSNxsS69O3if5Y8",
+            ]
+        },
+        {
+            "name": "waapi (debug-prod)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "debug",
+            "args": [
+                "--dart-define",
+                "FIREBASE_ENVIRONMENT=production",
+                "--dart-define",
+                "PLATFORM_URL_BASE=https://platform.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+                "--dart-define",
+                "HCM_API_URL_BASE=https://hcm-api.senior.com.br/frontend-api",
+                "--dart-define",
+                "SHOW_DEBUG_BANNER=false",
+                "--dart-define",
+                "ENCRYPTION_KEY=Hw1G6ALhmFqX6g2KgXx0WgS2Z3VaQ4UJ",
+            ]
+        },
+        {
+            "name": "waapi (profile-prod)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define",
+                "FIREBASE_ENVIRONMENT=production",
+                "--dart-define",
+                "PLATFORM_URL_BASE=https://platform.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+                "--dart-define",
+                "HCM_API_URL_BASE=https://hcm-api.senior.com.br/frontend-api",
+                "--dart-define",
+                "SHOW_DEBUG_BANNER=false"
+            ]
+        },
+        {
+            "name": "waapi (release-dev)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define",
+                "FIREBASE_ENVIRONMENT=development",
+                "--dart-define",
+                "PLATFORM_URL_BASE=https://cloud-leaf.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+                "--dart-define",
+                "HCM_API_URL_BASE=https://pc011555.interno.senior.com.br:8443/hcm-api",
+                "--dart-define",
+                "SHOW_DEBUG_BANNER=true",
+                "--dart-define",
+                "ENCRYPTION_KEY=WM2OYCimkNhQaoNOmuSNxsS69O3if5Y8",
+            ]
+        },
+        {
+            "name": "waapi (release-prod)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define",
+                "FIREBASE_ENVIRONMENT=production",
+                "--dart-define",
+                "PLATFORM_URL_BASE=https://platform.senior.com.br/t/senior.com.br/bridge/1.0/rest",
+                "--dart-define",
+                "HCM_API_URL_BASE=https://hcm-api.senior.com.br/frontend-api",
+                "--dart-define",
+                "SHOW_DEBUG_BANNER=false",
+                "--dart-define",
+                "ENCRYPTION_KEY=Hw1G6ALhmFqX6g2KgXx0WgS2Z3VaQ4UJ",
+            ]
+        },
+        {
+            "name": "All Tests Coverage",
+            "type": "dart",
+            "request": "launch",
+            "program": "test/",
+            "args": [
+                "--coverage"
+            ]
+        }
+    ]
+}

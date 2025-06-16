@@ -1,0 +1,4 @@
+enum CompanyTypeEnum {
+  headOffice,
+  branchOffice,
+}

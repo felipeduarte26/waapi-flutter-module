@@ -1,0 +1,9 @@
+{
+	"jira_task": {
+		"prefix": "jira_task",
+		"body": [
+			"[HCMAPP-$1](https://jira.senior.com.br/browse/HCMAPP-$1)",
+		],
+		"description": "Creates the Jira link for the task."
+	},
+}

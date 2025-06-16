@@ -1,0 +1,31 @@
+import 'package:ponto_mobile_collector/app/collector/core/external/drift/collector_database.dart';
+
+GlobalConfigurationTableData globalConfigurationTableDataMock =
+    const GlobalConfigurationTableData(
+  id: 'testId',
+  gps: true,
+  online: true,
+  timeout: '30',
+  operationMode: 'testMode',
+  nfcMode: true,
+  allowChangeTime: true,
+  timezone: 'testTimezone',
+  deviceAuthModeSingleMode: 'true',
+  deviceAuthModeMultiMode: 'true',
+  deviceAuthModeDriverMode: 'true',
+  allowDrivingTime: true,
+  overnight: true,
+  controlOvernight: true,
+  allowGpoOnApp: true,
+  exportNotChecked: true,
+  insightOutOfBound: 'testInsight',
+  takePhotoSingle: true,
+  takePhotoMulti: true,
+  takePhotoDriver: true,
+  takePhotoQrcode: true,
+  openExternalBrowser: true,
+  clockingEventUses: 'testClockingEventUses',
+  allowUse: true,
+  externalControlTimezone: true,
+  faceRecognition: true,
+);

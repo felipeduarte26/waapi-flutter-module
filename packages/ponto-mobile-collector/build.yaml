@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      source_gen|combining_builder:
+        options:
+          build_extensions:
+            "^lib/{{}}.dart": "lib/generated/{{}}.g.dart"
+      drift_dev:
+        options:
+          store_date_time_values_as_text: true
