@@ -8,7 +8,7 @@ echo "BASE_DIR definido como: $BASE_DIR"
 
 # 1. Limpeza da pasta waapi_module
 echo "Limpando waapi_module com segurança..."
-cd "$BASE_DIR/waapi_module"
+cd "$BASE_DIR"
 rm -rf .dart_tool build .packages pubspec.lock
 
 echo "Removendo a pasta .android..."
@@ -17,7 +17,7 @@ if ! rm -rf .android; then
 fi
 
 # 2. Limpar e rodar pub get nos pacotes
-cd "$BASE_DIR/waapi_module/packages"
+cd "$BASE_DIR/packages"
 echo "Limpando e rodando pub get nos pacotes..."
 for project in */ ; do
   if [ -d "$project" ]; then
@@ -38,14 +38,14 @@ for project in */ ; do
 done
 
 # 3. Flutter clean geral
-cd "$BASE_DIR/waapi_module"
+cd "$BASE_DIR"
 echo "Executando flutter clean e pub get geral no waapi_module..."
 flutter clean
 flutter pub get
 
 # Função para sobrescrever gradle.properties
 setGradleProperties() {
-  local gradle_file="$BASE_DIR/waapi_module/.android/gradle.properties"
+  local gradle_file="$BASE_DIR/.android/gradle.properties"
   echo "Sobrescrevendo gradle.properties..."
 
   cat > "$gradle_file" <<EOF
@@ -60,7 +60,7 @@ EOF
 # Função para build Android
 buildAndroid() {
   echo "🔄 Iniciando build para Android..."
-  cd "$BASE_DIR/waapi_module"
+  cd "$BASE_DIR"
 
   if [ ! -d ".android" ]; then
     echo "⚠️ A pasta .android não existe. Pulando geração do AAR."
@@ -80,7 +80,7 @@ buildAndroid() {
 
   setGradleProperties
 
-  echo "Gerando AAR em modules/waapi_module..."
+  echo "Gerando AAR..."
   export GRADLE_OPTS="-Xmx10G -XX:MaxMetaspaceSize=8G"
   #flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons -v
   flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons -v > build_log.txt 2>&1
