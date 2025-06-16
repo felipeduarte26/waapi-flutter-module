@@ -73,11 +73,21 @@ jobs:
 
       - name: Verify Android build
         run: |
+          echo "📋 Verificando artifacts de build Android..."
+          echo "Estrutura do diretório build:"
+          find build -type d 2>/dev/null | head -20 || echo "Diretório build não encontrado"
+
+          echo "Procurando arquivos AAR:"
+          find . -name "*.aar" 2>/dev/null | head -10 || echo "Nenhum AAR encontrado"
+
           if [ ! -d "build/host/outputs/repo" ]; then
             echo "❌ Android build failed - repo directory not found"
+            echo "📋 Estrutura atual do build:"
+            find build -name "*repo*" -type d 2>/dev/null || echo "Nenhum diretório repo encontrado"
             exit 1
           fi
           echo "✅ Android build successful"
+          echo "📦 Artifacts encontrados:"
           find build/host/outputs/repo -name "*.aar" -o -name "*.pom" | head -10
 
       - name: Upload Android artifacts

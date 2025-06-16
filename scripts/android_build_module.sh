@@ -73,8 +73,9 @@ buildAndroid() {
   cd "$BASE_DIR"
 
   if [ ! -d ".android" ]; then
-    echo "⚠️ A pasta .android não existe. Pulando geração do AAR."
-    return
+    echo "⚠️ A pasta .android não existe. Criando estrutura Android..."
+    flutter create -t module --android-language java .
+    echo "✅ Estrutura Android criada"
   fi
 
   echo "Substituindo arquivos build.gradle a partir dos templates externos..."
@@ -93,22 +94,50 @@ buildAndroid() {
   echo "Gerando AAR..."
   export GRADLE_OPTS="-Xmx6G -XX:MaxMetaspaceSize=4G -Dorg.gradle.daemon=false"
   
+  # Verificar estrutura antes do build
+  echo "📋 Verificando estrutura antes do build..."
+  echo "Diretório atual: $(pwd)"
+  echo "Conteúdo do diretório:"
+  ls -la
+  echo "Verificando .android:"
+  ls -la .android/ || echo "Diretório .android não encontrado"
+  
   # Build com timeout e handling de erros
   echo "Iniciando flutter build aar..."
+  echo "Comando: flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose"
+  
   if timeout 55m flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose 2>&1 | tee build_log.txt; then
-    echo "✅ AAR build concluído com sucesso!"
+    BUILD_EXIT_CODE=$?
+    echo "✅ Flutter build aar completou com código: $BUILD_EXIT_CODE"
   else
     BUILD_EXIT_CODE=$?
     echo "⚠️ Build retornou código $BUILD_EXIT_CODE"
-    
-    # Verificar se pelo menos alguns artifacts foram gerados
-    if [ -d "build/host/outputs/repo" ] && [ "$(find build/host/outputs/repo -name "*.aar" | wc -l)" -gt 0 ]; then
-      echo "🎯 Artifacts principais encontrados apesar do erro!"
-      echo "📱 Build considerado bem-sucedido"
-    else
-      echo "❌ Nenhum artifact AAR encontrado"
-      exit 1
-    fi
+  fi
+  
+  # Debug: Verificar o que foi gerado
+  echo "📋 Verificando estrutura após build..."
+  echo "Conteúdo do diretório build:"
+  find build -type d 2>/dev/null | head -20 || echo "Diretório build não encontrado"
+  
+  echo "Procurando por arquivos AAR:"
+  find . -name "*.aar" 2>/dev/null || echo "Nenhum arquivo AAR encontrado"
+  
+  echo "Procurando por outputs:"
+  find . -path "*/outputs/*" -type d 2>/dev/null || echo "Nenhum diretório outputs encontrado"
+  
+  # Verificar se pelo menos alguns artifacts foram gerados
+  if [ -d "build/host/outputs/repo" ] && [ "$(find build/host/outputs/repo -name "*.aar" | wc -l)" -gt 0 ]; then
+    echo "🎯 Artifacts principais encontrados no local esperado!"
+    echo "📱 Build considerado bem-sucedido"
+  elif [ -d "build" ] && [ "$(find build -name "*.aar" | wc -l)" -gt 0 ]; then
+    echo "🎯 Arquivos AAR encontrados em outro local:"
+    find build -name "*.aar" | head -5
+    echo "📱 Build parcialmente bem-sucedido - artifacts encontrados"
+  else
+    echo "❌ Nenhum artifact AAR encontrado em lugar algum"
+    echo "📋 Últimas linhas do log de build:"
+    tail -20 build_log.txt || echo "Log não encontrado"
+    exit 1
   fi
 
 }
