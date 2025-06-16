@@ -105,14 +105,29 @@ buildAndroid() {
   # Build com timeout e handling de erros
   echo "Iniciando flutter build aar..."
   echo "Comando: flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose"
+  echo "⏰ Aguardando build completar (pode demorar até 55 minutos)..."
   
-  if timeout 55m flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose 2>&1 | tee build_log.txt; then
-    BUILD_EXIT_CODE=$?
-    echo "✅ Flutter build aar completou com código: $BUILD_EXIT_CODE"
+  # Executar comando e capturar exit code explicitamente
+  set +e  # Temporariamente desabilitar exit on error
+  timeout 55m flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose 2>&1 | tee build_log.txt
+  BUILD_EXIT_CODE=$?
+  set -e  # Reabilitar exit on error
+  
+  echo "📋 Flutter build aar terminou com código: $BUILD_EXIT_CODE"
+  
+  if [ $BUILD_EXIT_CODE -eq 0 ]; then
+    echo "✅ Build completou com sucesso!"
+  elif [ $BUILD_EXIT_CODE -eq 143 ]; then
+    echo "⚠️ Build foi interrompido por timeout (143)"
+  elif [ $BUILD_EXIT_CODE -eq 124 ]; then
+    echo "⚠️ Build foi interrompido por timeout do comando timeout (124)"
   else
-    BUILD_EXIT_CODE=$?
-    echo "⚠️ Build retornou código $BUILD_EXIT_CODE"
+    echo "⚠️ Build falhou com código: $BUILD_EXIT_CODE"
   fi
+  
+  # Aguardar um momento para filesystem sync
+  echo "⏳ Aguardando sincronização do filesystem..."
+  sleep 5
   
   # Debug: Verificar o que foi gerado
   echo "📋 Verificando estrutura após build..."

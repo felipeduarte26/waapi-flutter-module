@@ -69,7 +69,12 @@ jobs:
 
           # Executar build
           chmod +x scripts/android_build_module.sh
+          echo "🚀 Iniciando build Android AAR..."
           ./scripts/android_build_module.sh
+
+          echo "✅ Script de build Android completou"
+          echo "⏳ Aguardando sincronização final..."
+          sleep 3
 
       - name: Verify Android build
         run: |
