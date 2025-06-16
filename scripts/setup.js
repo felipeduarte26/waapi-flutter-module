@@ -58,6 +58,30 @@ function findProjectRoot() {
   return null;
 }
 
+// Função para verificar se uma string contém qualquer um dos padrões
+function containsAnyPattern(content, patterns) {
+  return patterns.some(pattern => content.includes(pattern));
+}
+
+// Função para adicionar conteúdo a uma seção específica do build.gradle
+function addToGradleSection(content, sectionName, newContent) {
+  const sectionRegex = new RegExp(`(${sectionName}\\s*\\{)([^{}]*(?:\\{[^}]*\\}[^{}]*)*)\\}`, 'g');
+  const match = content.match(sectionRegex);
+  
+  if (match) {
+    const fullMatch = match[0];
+    const openingBrace = fullMatch.indexOf('{');
+    const beforeClosing = fullMatch.lastIndexOf('}');
+    
+    const beforeContent = fullMatch.substring(0, beforeClosing);
+    const newSection = beforeContent + `\n    ${newContent}\n}`;
+    
+    return content.replace(fullMatch, newSection);
+  }
+  
+  return content;
+}
+
 function setupAndroid() {
   console.log('📱 Setting up Android integration...');
   
@@ -76,53 +100,97 @@ function setupAndroid() {
   
   try {
     let buildGradleContent = fs.readFileSync(androidBuildGradle, 'utf8');
+    let modified = false;
     
-    // Adicionar repositório Maven se não existir
-    const mavenRepoConfig = `maven { url "$rootDir/../node_modules/@wiipo/waapi-module/android/repo" }`;
+    // Configuração do repositório Maven
+    const mavenRepoConfig = `maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }`;
+    const mavenPatterns = [
+      '@felipeduarte26/waapi-module/android/repo',
+      '@wiipo/waapi-module/android/repo' // Manter compatibilidade com versão antiga
+    ];
     
-    if (!buildGradleContent.includes('@wiipo/waapi-module/android/repo')) {
-      // Encontrar a seção repositories e adicionar o repositório
-      const repositoriesRegex = /(repositories\s*\{[^}]*)\}/;
-      const match = buildGradleContent.match(repositoriesRegex);
+    // Verificar se o repositório Maven já existe
+    if (!containsAnyPattern(buildGradleContent, mavenPatterns)) {
+      console.log('🔍 Maven repository not found, adding...');
       
-      if (match) {
-        const newRepositories = match[1] + `\n    ${mavenRepoConfig}\n}`;
-        buildGradleContent = buildGradleContent.replace(repositoriesRegex, newRepositories);
-        
-        console.log('✅ Added Maven repository to build.gradle');
+      // Procurar pela seção repositories dentro de android
+      const androidRepositoriesRegex = /(android\s*\{[\s\S]*?repositories\s*\{[^}]*)\}/;
+      const androidMatch = buildGradleContent.match(androidRepositoriesRegex);
+      
+      if (androidMatch) {
+        const newRepositories = androidMatch[1] + `\n        ${mavenRepoConfig}\n    }`;
+        buildGradleContent = buildGradleContent.replace(androidRepositoriesRegex, newRepositories);
+        console.log('✅ Added Maven repository to android repositories section');
+        modified = true;
       } else {
-        console.warn('⚠️  Could not find repositories section in build.gradle');
+        // Procurar por repositories global
+        const globalRepositoriesRegex = /(repositories\s*\{[^}]*)\}/;
+        const globalMatch = buildGradleContent.match(globalRepositoriesRegex);
+        
+        if (globalMatch) {
+          const newRepositories = globalMatch[1] + `\n    ${mavenRepoConfig}\n}`;
+          buildGradleContent = buildGradleContent.replace(globalRepositoriesRegex, newRepositories);
+          console.log('✅ Added Maven repository to global repositories section');
+          modified = true;
+        } else {
+          console.warn('⚠️  Could not find repositories section in build.gradle');
+        }
       }
+    } else {
+      console.log('✅ Maven repository already exists');
     }
     
-    // Verificar se as dependências já existem
-    const dependencies = [
+    // Configuração das dependências Flutter
+    const flutterDependencies = [
       "debugImplementation 'com.wiipo.waapi_module:flutter_debug:1.0'",
       "profileImplementation 'com.wiipo.waapi_module:flutter_profile:1.0'",
       "releaseImplementation 'com.wiipo.waapi_module:flutter_release:1.0'"
     ];
     
-    let dependenciesAdded = false;
-    dependencies.forEach(dep => {
-      if (!buildGradleContent.includes(dep)) {
-        // Encontrar a seção dependencies e adicionar
-        const dependenciesRegex = /(dependencies\s*\{[^}]*)\}/;
-        const depMatch = buildGradleContent.match(dependenciesRegex);
-        
-        if (depMatch) {
-          const newDependencies = depMatch[1] + `\n    ${dep}\n}`;
-          buildGradleContent = buildGradleContent.replace(dependenciesRegex, newDependencies);
-          dependenciesAdded = true;
-        }
+    const dependencyPatterns = [
+      'com.wiipo.waapi_module:flutter_debug',
+      'com.wiipo.waapi_module:flutter_profile',
+      'com.wiipo.waapi_module:flutter_release'
+    ];
+    
+    // Verificar quais dependências já existem
+    const missingDependencies = [];
+    flutterDependencies.forEach((dep, index) => {
+      if (!buildGradleContent.includes(dependencyPatterns[index])) {
+        missingDependencies.push(dep);
       }
     });
     
-    if (dependenciesAdded) {
+    if (missingDependencies.length > 0) {
+      console.log(`🔍 Found ${missingDependencies.length} missing Flutter dependencies, adding...`);
+      
+      // Procurar pela seção dependencies
+      const dependenciesRegex = /(dependencies\s*\{[^{}]*(?:\{[^}]*\}[^{}]*)*)\}/;
+      const depMatch = buildGradleContent.match(dependenciesRegex);
+      
+      if (depMatch) {
+        const existingDeps = depMatch[1];
+        const newDependencies = existingDeps + '\n    ' + missingDependencies.join('\n    ') + '\n}';
+        buildGradleContent = buildGradleContent.replace(dependenciesRegex, newDependencies);
+        console.log(`✅ Added ${missingDependencies.length} Flutter dependencies to build.gradle`);
+        modified = true;
+      } else {
+        console.warn('⚠️  Could not find dependencies section in build.gradle');
+      }
+    } else {
+      console.log('✅ All Flutter dependencies already exist');
+    }
+    
+    // Salvar as mudanças se houve modificações
+    if (modified) {
       // Fazer backup do arquivo original
-      fs.writeFileSync(androidBuildGradle + '.backup', fs.readFileSync(androidBuildGradle));
+      const backupPath = androidBuildGradle + '.backup.' + Date.now();
+      fs.writeFileSync(backupPath, fs.readFileSync(androidBuildGradle));
       fs.writeFileSync(androidBuildGradle, buildGradleContent);
-      console.log('✅ Added Flutter dependencies to build.gradle');
-      console.log('💾 Backup created at build.gradle.backup');
+      console.log(`💾 Backup created at ${path.basename(backupPath)}`);
+      console.log('✅ Android build.gradle updated successfully');
+    } else {
+      console.log('✅ Android configuration already up to date');
     }
     
   } catch (err) {
@@ -148,13 +216,22 @@ function setupIOS() {
   
   try {
     let podfileContent = fs.readFileSync(podfilePath, 'utf8');
+    let modified = false;
     
-    // Adicionar pod se não existir
-    const podLine = "pod 'WaapiModule', :path => '../node_modules/@wiipo/waapi-module'";
+    // Configuração do pod com novo package name
+    const podLine = "pod 'WaapiModule', :path => '../node_modules/@felipeduarte26/waapi-module'";
+    const podPatterns = [
+      '@felipeduarte26/waapi-module',
+      '@wiipo/waapi-module', // Manter compatibilidade com versão antiga
+      'WaapiModule'
+    ];
     
-    if (!podfileContent.includes('WaapiModule')) {
-      // Encontrar onde adicionar o pod (após outros pods)
-      const targetRegex = /target ['"][^'"]*['"] do/;
+    // Verificar se o pod já existe
+    if (!containsAnyPattern(podfileContent, podPatterns)) {
+      console.log('🔍 WaapiModule pod not found, adding...');
+      
+      // Encontrar onde adicionar o pod (após o target principal)
+      const targetRegex = /target\s+['"][^'"]*['"][ \t]*do/;
       const match = podfileContent.match(targetRegex);
       
       if (match) {
@@ -163,19 +240,26 @@ function setupIOS() {
         const afterTarget = podfileContent.substring(insertIndex);
         
         podfileContent = beforeTarget + `\n  ${podLine}\n` + afterTarget;
-        
-        // Fazer backup do arquivo original
-        fs.writeFileSync(podfilePath + '.backup', fs.readFileSync(podfilePath));
-        fs.writeFileSync(podfilePath, podfileContent);
-        
+        modified = true;
         console.log('✅ Added WaapiModule pod to Podfile');
-        console.log('💾 Backup created at Podfile.backup');
-        console.log('🔄 Please run "cd ios && pod install" to install the pod');
       } else {
         console.warn('⚠️  Could not find target section in Podfile');
       }
     } else {
       console.log('✅ WaapiModule pod already exists in Podfile');
+    }
+    
+    // Salvar as mudanças se houve modificações
+    if (modified) {
+      // Fazer backup do arquivo original
+      const backupPath = podfilePath + '.backup.' + Date.now();
+      fs.writeFileSync(backupPath, fs.readFileSync(podfilePath));
+      fs.writeFileSync(podfilePath, podfileContent);
+      console.log(`💾 Backup created at ${path.basename(backupPath)}`);
+      console.log('✅ iOS Podfile updated successfully');
+      console.log('🔄 Please run "cd ios && pod install" to install the pod');
+    } else {
+      console.log('✅ iOS configuration already up to date');
     }
     
   } catch (err) {
@@ -184,27 +268,33 @@ function setupIOS() {
 }
 
 function showInstructions() {
-  console.log('\n📋 Setup Instructions:');
+  console.log('\n📋 Setup Summary:');
   console.log('');
-  console.log('For Android:');
-  console.log('  - Repository and dependencies should be automatically added to build.gradle');
-  console.log('  - If not, manually add to android/app/build.gradle:');
-  console.log('    repositories {');
-  console.log('      maven { url "$rootDir/../node_modules/@wiipo/waapi-module/android/repo" }');
-  console.log('    }');
-  console.log('    dependencies {');
-  console.log('      debugImplementation "com.wiipo.waapi_module:flutter_debug:1.0"');
-  console.log('      profileImplementation "com.wiipo.waapi_module:flutter_profile:1.0"');
-  console.log('      releaseImplementation "com.wiipo.waapi_module:flutter_release:1.0"');
-  console.log('    }');
+  console.log('✅ Waapi Module automatic setup completed!');
   console.log('');
-  console.log('For iOS:');
-  console.log('  - Pod should be automatically added to Podfile');
-  console.log('  - Run: cd ios && pod install');
-  console.log('  - If not added automatically, manually add to ios/Podfile:');
-  console.log('    pod "WaapiModule", :path => "../node_modules/@wiipo/waapi-module"');
+  console.log('📱 Android:');
+  console.log('  - Maven repository configured automatically');
+  console.log('  - Flutter dependencies (debug, profile, release) configured automatically');
   console.log('');
-  console.log('✅ Waapi Module setup completed!');
+  console.log('🍎 iOS:');
+  console.log('  - WaapiModule pod configured automatically');
+  console.log('  - Run "cd ios && pod install" if you haven\'t already');
+  console.log('');
+  console.log('🔧 Manual Configuration (if automatic setup failed):');
+  console.log('');
+  console.log('Android (android/app/build.gradle):');
+  console.log('  repositories {');
+  console.log('    maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }');
+  console.log('  }');
+  console.log('  dependencies {');
+  console.log('    debugImplementation "com.wiipo.waapi_module:flutter_debug:1.0"');
+  console.log('    profileImplementation "com.wiipo.waapi_module:flutter_profile:1.0"');
+  console.log('    releaseImplementation "com.wiipo.waapi_module:flutter_release:1.0"');
+  console.log('  }');
+  console.log('');
+  console.log('iOS (ios/Podfile):');
+  console.log('  pod "WaapiModule", :path => "../node_modules/@felipeduarte26/waapi-module"');
+  console.log('');
 }
 
 // Executar setup
