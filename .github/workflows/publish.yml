@@ -335,21 +335,44 @@ jobs:
 
       - name: Create Release
         if: startsWith(github.ref, 'refs/tags/v')
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
           body: |
-            ## Changes
-            - Flutter Module build for version ${{ steps.version.outputs.version }}
-            - Android AAR artifacts included
-            - iOS Framework artifacts included
+            ## 🚀 Flutter Waapi Module v${{ steps.version.outputs.version }}
 
-            ## Installation
+            ### ✨ What's Included
+            - ✅ **Android AAR artifacts** with all variants (debug, profile, release)
+            - ✅ **iOS Framework artifacts** with XCFrameworks
+            - ✅ **Complete Maven repository** (~300MB)
+            - ✅ **Enhanced logging** and build improvements
+
+            ### 📦 Installation
             ```bash
-            npm install @felipeduarte26/waapi-module@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
+            # Configure .npmrc or .yarnrc.yml for GitHub Packages
+            echo "@felipeduarte26:registry=https://npm.pkg.github.com" >> .npmrc
+            echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> .npmrc
+
+            # Install package
+            npm install @felipeduarte26/waapi-module@${{ steps.version.outputs.version }}
+            # or
+            yarn add @felipeduarte26/waapi-module@${{ steps.version.outputs.version }}
+            ```
+
+            ### 🔧 React Native Integration
+            Add to `android/app/build.gradle`:
+            ```gradle
+            repositories {
+              maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }
+            }
+            dependencies {
+              debugImplementation 'com.wiipo.waapi_module:flutter_debug:1.0'
+              profileImplementation 'com.wiipo.waapi_module:flutter_profile:1.0'
+              releaseImplementation 'com.wiipo.waapi_module:flutter_release:1.0'
+            }
             ```
           draft: false
           prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
