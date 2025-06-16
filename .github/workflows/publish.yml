@@ -27,6 +27,23 @@ jobs:
           distribution: "temurin"
           java-version: "17"
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install CMake and NDK
+        run: |
+          echo "Installing CMake and NDK for native builds..."
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "cmake;3.22.1"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;25.1.8937393"
+
+          # Verificar se CMake foi instalado
+          if [ -f "$ANDROID_HOME/cmake/3.22.1/bin/ninja" ]; then
+            echo "✅ CMake 3.22.1 instalado com sucesso"
+          else
+            echo "❌ CMake 3.22.1 não encontrado, tentando instalação alternativa..."
+            $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list | grep cmake
+          fi
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -66,6 +83,17 @@ jobs:
           # Configurar ambiente para builds grandes
           export GRADLE_OPTS="-Xmx6G -XX:MaxMetaspaceSize=4G -Dorg.gradle.daemon=false"
           export JAVA_OPTS="-Xmx6G"
+
+          # Configurar paths para CMake/NDK
+          export ANDROID_NDK_ROOT="$ANDROID_HOME/ndk/25.1.8937393"
+          export CMAKE_ANDROID_NDK="$ANDROID_HOME/ndk/25.1.8937393"
+
+          # Criar diretório .android se não existir
+          if [ ! -d ".android" ]; then
+            echo "📁 Criando diretório .android..."
+            mkdir -p .android
+            flutter create --template=module --platforms=android .
+          fi
 
           # Executar build
           chmod +x scripts/android_build_module.sh
