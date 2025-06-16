@@ -54,12 +54,6 @@ org.gradle.jvmargs=-Xmx6G -XX:MaxMetaspaceSize=4G -XX:+HeapDumpOnOutOfMemoryErro
 android.useAndroidX=true
 android.enableJetifier=true
 
-# Configurações para build mais rápido
-org.gradle.caching=true
-org.gradle.parallel=true
-org.gradle.configureondemand=true
-org.gradle.daemon=false
-
 # Suprimir warnings de deprecação para Gradle 9.0
 org.gradle.warning.mode=none
 EOF
@@ -104,12 +98,11 @@ buildAndroid() {
   
   # Build com timeout e handling de erros
   echo "Iniciando flutter build aar..."
-  echo "Comando: flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose"
   echo "⏰ Aguardando build completar (pode demorar até 55 minutos)..."
   
   # Executar comando e capturar exit code explicitamente
   set +e  # Temporariamente desabilitar exit on error
-  timeout 55m flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons --verbose 2>&1 | tee build_log.txt
+  flutter build aar --dart-define-from-file=config.json --no-tree-shake-icons -v
   BUILD_EXIT_CODE=$?
   set -e  # Reabilitar exit on error
   
@@ -134,27 +127,8 @@ buildAndroid() {
   echo "Conteúdo do diretório build:"
   find build -type d 2>/dev/null | head -20 || echo "Diretório build não encontrado"
   
-  echo "Procurando por arquivos AAR:"
-  find . -name "*.aar" 2>/dev/null || echo "Nenhum arquivo AAR encontrado"
-  
   echo "Procurando por outputs:"
   find . -path "*/outputs/*" -type d 2>/dev/null || echo "Nenhum diretório outputs encontrado"
-  
-  # Verificar se pelo menos alguns artifacts foram gerados
-  if [ -d "build/host/outputs/repo" ] && [ "$(find build/host/outputs/repo -name "*.aar" | wc -l)" -gt 0 ]; then
-    echo "🎯 Artifacts principais encontrados no local esperado!"
-    echo "📱 Build considerado bem-sucedido"
-  elif [ -d "build" ] && [ "$(find build -name "*.aar" | wc -l)" -gt 0 ]; then
-    echo "🎯 Arquivos AAR encontrados em outro local:"
-    find build -name "*.aar" | head -5
-    echo "📱 Build parcialmente bem-sucedido - artifacts encontrados"
-  else
-    echo "❌ Nenhum artifact AAR encontrado em lugar algum"
-    echo "📋 Últimas linhas do log de build:"
-    tail -20 build_log.txt || echo "Log não encontrado"
-    exit 1
-  fi
-
 }
 
 buildAndroid
