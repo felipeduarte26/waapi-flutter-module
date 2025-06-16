@@ -28,8 +28,16 @@ function checkPrerequisites() {
   
   // Check if Flutter is installed
   try {
-    execSync('flutter --version', { stdio: 'pipe' });
+    const output = execSync('flutter --version', { encoding: 'utf8' });
     console.log('✅ Flutter is installed');
+    
+    // Check Flutter version
+    if (output.includes('3.27.4')) {
+      console.log('✅ Flutter version 3.27.4 confirmed');
+    } else {
+      console.warn('⚠️  Expected Flutter 3.27.4, but found different version');
+      console.log('Current version output:', output.split('\n')[0]);
+    }
   } catch (error) {
     console.error('❌ Flutter is not installed or not in PATH');
     return false;

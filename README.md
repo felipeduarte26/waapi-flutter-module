@@ -20,7 +20,7 @@ Veja o [guia de integração completo](./INTEGRATION.md) para instruções detal
 
 ### Pré-requisitos
 
-- Flutter 3.22.0+
+- Flutter 3.27.4+
 - Xcode 14+ (para iOS)
 - Android Studio com SDK 33+ (para Android)
 - Node.js 14+ (para scripts NPM)
