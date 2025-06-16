@@ -290,16 +290,16 @@ jobs:
           EOF
 
           # Criar WaapiModule.podspec
-          cat > WaapiModule.podspec << 'EOF'
+          cat > WaapiModule.podspec << EOF
           Pod::Spec.new do |s|
             s.name             = 'WaapiModule'
-            s.version          = '1.0.0'
+            s.version          = '${{ steps.version.outputs.version }}'
             s.summary          = 'Flutter Waapi Module for React Native'
             s.description      = 'Wiipo Waapi Flutter module integration for React Native projects'
-            s.homepage         = 'https://github.com/wiipo/waapi-module'
+            s.homepage         = 'https://github.com/felipeduarte26/waapi-flutter-module'
             s.license          = { :type => 'MIT', :file => 'LICENSE' }
             s.author           = { 'Wiipo' => 'dev@wiipo.com' }
-            s.source           = { :git => 'https://github.com/wiipo/waapi-module.git', :tag => s.version.to_s }
+            s.source           = { :git => 'https://github.com/felipeduarte26/waapi-flutter-module.git', :tag => s.version.to_s }
 
             s.ios.deployment_target = '16.0'
             s.requires_arc = true
