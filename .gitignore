@@ -110,26 +110,25 @@ coverage/
 .idea/
 
 # FLUTTER BUILD FILES - CRITICAL TO IGNORE
-# Flutter Android build files
-.android/
-.android/Flutter/
+# Flutter Android build files (keep structure, ignore builds)
 .android/Flutter/build/
 .android/Flutter/ephemeral/
 .android/app/build/
-.android/gradle/
 .android/gradlew*
 .android/plugins_build_output/
 .android/**/build/
 .android/**/gradle-wrapper.jar
 .android/.gradle/
+.android/local.properties
 
-# Flutter iOS build files  
-.ios/
-.ios/Flutter/
+# Flutter iOS build files (keep structure, ignore builds)
+.ios/Flutter/build/
+.ios/Flutter/ephemeral/
 .ios/Pods/
 .ios/Runner.xcworkspace/
 .ios/Runner/GeneratedPluginRegistrant.*
 .ios/.symlinks/
+.ios/Podfile.lock
 
 # Large Flutter files that cause Git issues
 **/*.bin

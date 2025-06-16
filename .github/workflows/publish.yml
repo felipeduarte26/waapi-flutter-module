@@ -53,6 +53,12 @@ jobs:
             fi
           done
 
+      - name: Clean build artifacts
+        run: |
+          rm -rf .android/Flutter/build .android/app/build .android/.gradle
+          rm -rf .ios/Flutter/build .ios/Pods
+          find . -name "kernel_blob.bin" -delete 2>/dev/null || true
+
       - name: Build Android AAR
         run: |
           chmod +x scripts/android_build_module.sh
@@ -111,6 +117,12 @@ jobs:
               cd ..
             fi
           done
+
+      - name: Clean build artifacts
+        run: |
+          rm -rf .android/Flutter/build .android/app/build .android/.gradle
+          rm -rf .ios/Flutter/build .ios/Pods
+          find . -name "kernel_blob.bin" -delete 2>/dev/null || true
 
       - name: Build iOS Framework
         run: |
