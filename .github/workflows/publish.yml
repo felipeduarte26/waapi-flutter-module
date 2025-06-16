@@ -7,6 +7,10 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   FLUTTER_VERSION: "3.27.4"
   NODE_VERSION: "18"
@@ -199,7 +203,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           registry-url: "https://npm.pkg.github.com"
-          scope: "@wiipo"
+          scope: "@felipeduarte26"
 
       - name: Download Android artifacts
         uses: actions/download-artifact@v4
@@ -253,7 +257,7 @@ jobs:
           # Criar index.js
           cat > index.js << 'EOF'
           module.exports = {
-            name: '@wiipo/waapi-module',
+            name: '@felipeduarte26/waapi-module',
             version: require('./package.json').version,
             android: {
               repoPath: './android/repo',
@@ -345,7 +349,7 @@ jobs:
 
             ## Installation
             ```bash
-            npm install @wiipo/waapi-module@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
+            npm install @felipeduarte26/waapi-module@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
             ```
           draft: false
           prerelease: false
