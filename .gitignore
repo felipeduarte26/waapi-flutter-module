@@ -1,44 +1,40 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
 .DS_Store
-.dart_tool/
-
-.pub/
-
-.idea/
-.vagrant/
-.sconsign.dblite
+.atom/
+.buildlog/
+.history
 .svn/
 
-migrate_working_dir/
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
 
-*.swp
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
 
-DerivedData/
-
-.generated/
-
-*.pbxuser
-*.mode1v3
-*.mode2v3
-*.perspectivev3
-
-!default.pbxuser
-!default.mode1v3
-!default.mode2v3
-!default.perspectivev3
-
-xcuserdata
-
-*.moved-aside
-
-*.pyc
-*sync/
-.tags*
-
-build/
-.android/.gradle
-.android/plugins_build_output
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/Runner/GeneratedPluginRegistrant.*
+.dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+/build/
+
+# Web related
+lib/generated_plugin_registrant.dart
 
 # Symbolication related
 app.*.symbols
@@ -46,9 +42,135 @@ app.*.symbols
 # Obfuscation related
 app.*.map.json
 
-# FVM Version Cache
-.fvm/
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
 
-# Ignorar arquivo gerado pelo Flutter no módulo waapi_module
-/modules/waapi_module/.ios/Flutter/Generated.xcconfig
-/modules/waapi_module/.ios/Flutter/flutter_export_environment.sh
+# NPM Package specific
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+
+# Package build artifacts - KEEP for distribution
+# Note: We want to include these in the package
+# android/repo/
+# ios/
+
+# Build logs and temporary files
+build_log.txt
+*.backup
+*.tmp
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Runtime cache
+.dart_tool/
+.packages
+pubspec.lock
+
+# iOS specific
+ios/Pods/
+ios/.symlinks/
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# Android specific  
+android/.gradle/
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/key.properties
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/**/GeneratedPluginRegistrant.java
+
+# Coverage
+coverage/
+
+# Exceptions to .gitignore
+!gradle-wrapper.properties
+
+# Local development
+.vscode/
+.idea/
+
+# FLUTTER BUILD FILES - CRITICAL TO IGNORE
+# Flutter Android build files
+.android/
+.android/Flutter/
+.android/Flutter/build/
+.android/Flutter/ephemeral/
+.android/app/build/
+.android/gradle/
+.android/gradlew*
+.android/plugins_build_output/
+.android/**/build/
+.android/**/gradle-wrapper.jar
+.android/.gradle/
+
+# Flutter iOS build files  
+.ios/
+.ios/Flutter/
+.ios/Pods/
+.ios/Runner.xcworkspace/
+.ios/Runner/GeneratedPluginRegistrant.*
+.ios/.symlinks/
+
+# Large Flutter files that cause Git issues
+**/*.bin
+**/*.dex
+**/*.so
+**/kernel_blob.bin
+**/flutter_assets/kernel_blob.bin
+**/intermediates/
+**/tmp/
+
+# Flutter framework files (very large)
+**/Flutter.framework/
+**/App.framework/
+**/FlutterPluginRegistrant/
+
+# Gradle files
+gradle-wrapper.properties
+!**/gradle-wrapper.properties
+
+# Build directories
+build/
+**/build/
+.pub/
+.vagrant/
+.sconsign.dblite
+migrate_working_dir/
+DerivedData/
+*.moved-aside
+*sync/
+.tags*
+.android/.gradle
+.android/plugins_build_output
+
+# XCFrameworks and frameworks (large files)
+**/*.xcframework/
+**/*.framework/
+
+# Dart/Flutter generated files
+**/.dart_tool/
+**/generated_plugin_registrant.dart
+**/flutter_export_environment.sh
+
+# Flutter test files
+**/flutter_test.dart

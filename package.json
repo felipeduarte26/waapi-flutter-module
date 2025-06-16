@@ -1,0 +1,45 @@
+{
+  "name": "@wiipo/waapi-module",
+  "version": "1.0.0",
+  "description": "Flutter module for Wiipo project - React Native integration",
+  "main": "index.js",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "postinstall": "node scripts/setup.js",
+    "clean": "rm -rf build/ android/ ios/",
+    "test": "echo \"No tests specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wiipo/waapi-module.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "@wiipo:registry": "https://npm.pkg.github.com"
+  },
+  "keywords": [
+    "react-native",
+    "flutter",
+    "wiipo",
+    "waapi",
+    "android",
+    "ios"
+  ],
+  "author": "Wiipo",
+  "license": "MIT",
+  "files": [
+    "android/",
+    "ios/",
+    "index.js",
+    "react-native.config.js",
+    "scripts/setup.js",
+    "WaapiModule.podspec",
+    "README.md"
+  ],
+  "peerDependencies": {
+    "react-native": ">=0.60.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+} 

@@ -1,0 +1,277 @@
+name: Build and Publish Flutter Module
+
+on:
+  push:
+    branches: [main, develop]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+
+env:
+  FLUTTER_VERSION: "3.22.0"
+  NODE_VERSION: "18"
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Get dependencies for packages
+        run: |
+          cd packages
+          for project in */ ; do
+            if [ -d "$project" ]; then
+              echo "Getting dependencies for $project..."
+              cd "$project"
+              flutter pub get
+              if [ -d "example" ]; then
+                cd example
+                flutter pub get
+                cd ..
+              fi
+              cd ..
+            fi
+          done
+
+      - name: Build Android AAR
+        run: |
+          chmod +x scripts/android_build_module.sh
+          ./scripts/android_build_module.sh
+
+      - name: Verify Android build
+        run: |
+          if [ ! -d "build/host/outputs/repo" ]; then
+            echo "❌ Android build failed - repo directory not found"
+            exit 1
+          fi
+          echo "✅ Android build successful"
+          find build/host/outputs/repo -name "*.aar" -o -name "*.pom" | head -10
+
+      - name: Upload Android artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-artifacts
+          path: build/host/outputs/repo/
+          retention-days: 30
+
+  build-ios:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Setup CocoaPods
+        run: |
+          sudo gem install cocoapods
+          pod setup
+
+      - name: Get Flutter dependencies
+        run: flutter pub get
+
+      - name: Get dependencies for packages
+        run: |
+          cd packages
+          for project in */ ; do
+            if [ -d "$project" ]; then
+              echo "Getting dependencies for $project..."
+              cd "$project"
+              flutter pub get
+              if [ -d "example" ]; then
+                cd example
+                flutter pub get
+                cd ..
+              fi
+              cd ..
+            fi
+          done
+
+      - name: Build iOS Framework
+        run: |
+          chmod +x scripts/build_modules_ios.sh
+          ./scripts/build_modules_ios.sh
+
+      - name: Verify iOS build
+        run: |
+          if [ ! -d "build/ios/framework" ]; then
+            echo "❌ iOS build failed - framework directory not found"
+            exit 1
+          fi
+          echo "✅ iOS build successful"
+          find build/ios/framework -name "*.framework" -o -name "*.xcframework" | head -10
+
+      - name: Upload iOS artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-artifacts
+          path: build/ios/framework/
+          retention-days: 30
+
+  publish:
+    needs: [build-android, build-ios]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@wiipo"
+
+      - name: Download Android artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: android-artifacts
+          path: android/repo/
+
+      - name: Download iOS artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ios-artifacts
+          path: ios/
+
+      - name: Create package structure
+        run: |
+          # Criar diretórios necessários
+          mkdir -p android/repo ios/
+
+          # Verificar se os artifacts foram baixados corretamente
+          echo "📦 Verificando artifacts Android:"
+          ls -la android/repo/ | head -10
+
+          echo "📦 Verificando artifacts iOS:"
+          ls -la ios/ | head -10
+
+      - name: Generate package version
+        id: version
+        run: |
+          if [[ $GITHUB_REF == refs/tags/v* ]]; then
+            VERSION=${GITHUB_REF#refs/tags/v}
+          else
+            VERSION="1.0.0-${GITHUB_SHA::8}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Publishing version: $VERSION"
+
+      - name: Update package.json version
+        run: |
+          npm version ${{ steps.version.outputs.version }} --no-git-tag-version
+
+      - name: Create additional files
+        run: |
+          # Criar index.js
+          cat > index.js << 'EOF'
+          module.exports = {
+            name: '@wiipo/waapi-module',
+            version: require('./package.json').version,
+            android: {
+              repoPath: './android/repo',
+              groupId: 'com.wiipo.waapi_module',
+              artifactId: 'flutter',
+              version: '1.0'
+            },
+            ios: {
+              frameworkPath: './ios',
+              podspecName: 'WaapiModule'
+            }
+          };
+          EOF
+
+          # Criar react-native.config.js
+          cat > react-native.config.js << 'EOF'
+          module.exports = {
+            dependency: {
+              platforms: {
+                android: {
+                  sourceDir: '../android',
+                  packageImportPath: 'import com.wiipo.waapi_module.WaapiModulePlugin;',
+                },
+                ios: {
+                  podspecPath: '../WaapiModule.podspec',
+                },
+              },
+            },
+          };
+          EOF
+
+          # Criar WaapiModule.podspec
+          cat > WaapiModule.podspec << 'EOF'
+          Pod::Spec.new do |s|
+            s.name             = 'WaapiModule'
+            s.version          = '1.0.0'
+            s.summary          = 'Flutter Waapi Module for React Native'
+            s.description      = 'Wiipo Waapi Flutter module integration for React Native projects'
+            s.homepage         = 'https://github.com/wiipo/waapi-module'
+            s.license          = { :type => 'MIT', :file => 'LICENSE' }
+            s.author           = { 'Wiipo' => 'dev@wiipo.com' }
+            s.source           = { :git => 'https://github.com/wiipo/waapi-module.git', :tag => s.version.to_s }
+
+            s.ios.deployment_target = '16.0'
+            s.requires_arc = true
+
+            # Incluir todos os frameworks do diretório ios/
+            s.ios.vendored_frameworks = 'ios/**/*.{framework,xcframework}'
+            
+            # Dependências básicas
+            s.dependency 'Flutter'
+            s.dependency 'FlutterPluginRegistrant'
+          end
+          EOF
+
+      - name: Publish to GitHub Packages
+        run: |
+          echo "📦 Publishing package to GitHub Packages..."
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ## Changes
+            - Flutter Module build for version ${{ steps.version.outputs.version }}
+            - Android AAR artifacts included
+            - iOS Framework artifacts included
+
+            ## Installation
+            ```bash
+            npm install @wiipo/waapi-module@${{ steps.version.outputs.version }} --registry=https://npm.pkg.github.com
+            ```
+          draft: false
+          prerelease: false
