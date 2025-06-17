@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-console.log('🔧 Setting up Waapi Module...');
+console.log('🔧 Configurando Módulo Waapi...');
 
 // Função para verificar se o arquivo existe
 function fileExists(filePath) {
@@ -83,18 +83,18 @@ function addToGradleSection(content, sectionName, newContent) {
 }
 
 function setupAndroid() {
-  console.log('📱 Setting up Android integration...');
+  console.log('📱 Configurando integração Android...');
   
   const projectRoot = findProjectRoot();
   if (!projectRoot) {
-    console.warn('⚠️  Could not find React Native project root. Android setup skipped.');
+    console.warn('⚠️  Não foi possível encontrar a raiz do projeto React Native. Configuração Android ignorada.');
     return;
   }
   
   const androidBuildGradle = path.join(projectRoot, 'android', 'app', 'build.gradle');
   
   if (!fileExists(androidBuildGradle)) {
-    console.warn('⚠️  Android build.gradle not found. Please configure manually.');
+    console.warn('⚠️  Arquivo build.gradle do Android não encontrado. Por favor, configure manualmente.');
     return;
   }
   
@@ -111,7 +111,7 @@ function setupAndroid() {
     
     // Verificar se o repositório Maven já existe
     if (!containsAnyPattern(buildGradleContent, mavenPatterns)) {
-      console.log('🔍 Maven repository not found, adding...');
+      console.log('🔍 Repositório Maven não encontrado, adicionando...');
       
       // Procurar pela seção repositories dentro de android
       const androidRepositoriesRegex = /(android\s*\{[\s\S]*?repositories\s*\{[^}]*)\}/;
@@ -120,7 +120,7 @@ function setupAndroid() {
       if (androidMatch) {
         const newRepositories = androidMatch[1] + `\n        ${mavenRepoConfig}\n    }`;
         buildGradleContent = buildGradleContent.replace(androidRepositoriesRegex, newRepositories);
-        console.log('✅ Added Maven repository to android repositories section');
+        console.log('✅ Repositório Maven adicionado à seção repositories do Android');
         modified = true;
       } else {
         // Procurar por repositories global
@@ -130,14 +130,14 @@ function setupAndroid() {
         if (globalMatch) {
           const newRepositories = globalMatch[1] + `\n    ${mavenRepoConfig}\n}`;
           buildGradleContent = buildGradleContent.replace(globalRepositoriesRegex, newRepositories);
-          console.log('✅ Added Maven repository to global repositories section');
+          console.log('✅ Repositório Maven adicionado à seção repositories global');
           modified = true;
         } else {
-          console.warn('⚠️  Could not find repositories section in build.gradle');
+          console.warn('⚠️  Não foi possível encontrar a seção repositories no build.gradle');
         }
       }
     } else {
-      console.log('✅ Maven repository already exists');
+      console.log('✅ Repositório Maven já existe');
     }
     
     // Configuração das dependências Flutter
@@ -162,7 +162,7 @@ function setupAndroid() {
     });
     
     if (missingDependencies.length > 0) {
-      console.log(`🔍 Found ${missingDependencies.length} missing Flutter dependencies, adding...`);
+      console.log(`🔍 Encontradas ${missingDependencies.length} dependências Flutter ausentes, adicionando...`);
       
       // Procurar pela seção dependencies
       const dependenciesRegex = /(dependencies\s*\{[^{}]*(?:\{[^}]*\}[^{}]*)*)\}/;
@@ -172,13 +172,13 @@ function setupAndroid() {
         const existingDeps = depMatch[1];
         const newDependencies = existingDeps + '\n    ' + missingDependencies.join('\n    ') + '\n}';
         buildGradleContent = buildGradleContent.replace(dependenciesRegex, newDependencies);
-        console.log(`✅ Added ${missingDependencies.length} Flutter dependencies to build.gradle`);
+        console.log(`✅ ${missingDependencies.length} dependências Flutter adicionadas ao build.gradle`);
         modified = true;
       } else {
-        console.warn('⚠️  Could not find dependencies section in build.gradle');
+        console.warn('⚠️  Não foi possível encontrar a seção dependencies no build.gradle');
       }
     } else {
-      console.log('✅ All Flutter dependencies already exist');
+      console.log('✅ Todas as dependências Flutter já existem');
     }
     
     // Salvar as mudanças se houve modificações
@@ -187,30 +187,30 @@ function setupAndroid() {
       const backupPath = androidBuildGradle + '.backup.' + Date.now();
       fs.writeFileSync(backupPath, fs.readFileSync(androidBuildGradle));
       fs.writeFileSync(androidBuildGradle, buildGradleContent);
-      console.log(`💾 Backup created at ${path.basename(backupPath)}`);
-      console.log('✅ Android build.gradle updated successfully');
+      console.log(`💾 Backup criado em ${path.basename(backupPath)}`);
+      console.log('✅ Arquivo build.gradle do Android atualizado com sucesso');
     } else {
-      console.log('✅ Android configuration already up to date');
+      console.log('✅ Configuração Android já está atualizada');
     }
     
   } catch (err) {
-    console.error('❌ Error setting up Android:', err.message);
+    console.error('❌ Erro ao configurar Android:', err.message);
   }
 }
 
 function setupIOS() {
-  console.log('🍎 Setting up iOS integration...');
+  console.log('🍎 Configurando integração iOS...');
   
   const projectRoot = findProjectRoot();
   if (!projectRoot) {
-    console.warn('⚠️  Could not find React Native project root. iOS setup skipped.');
+    console.warn('⚠️  Não foi possível encontrar a raiz do projeto React Native. Configuração iOS ignorada.');
     return;
   }
   
   const podfilePath = path.join(projectRoot, 'ios', 'Podfile');
   
   if (!fileExists(podfilePath)) {
-    console.warn('⚠️  Podfile not found. Please configure manually.');
+    console.warn('⚠️  Podfile não encontrado. Por favor, configure manualmente.');
     return;
   }
   
@@ -228,7 +228,7 @@ function setupIOS() {
     
     // Verificar se o pod já existe
     if (!containsAnyPattern(podfileContent, podPatterns)) {
-      console.log('🔍 WaapiModule pod not found, adding...');
+      console.log('🔍 Pod WaapiModule não encontrado, adicionando...');
       
       // Encontrar onde adicionar o pod (após o target principal)
       const targetRegex = /target\s+['"][^'"]*['"][ \t]*do/;
@@ -241,12 +241,12 @@ function setupIOS() {
         
         podfileContent = beforeTarget + `\n  ${podLine}\n` + afterTarget;
         modified = true;
-        console.log('✅ Added WaapiModule pod to Podfile');
+        console.log('✅ Pod WaapiModule adicionado ao Podfile');
       } else {
-        console.warn('⚠️  Could not find target section in Podfile');
+        console.warn('⚠️  Não foi possível encontrar a seção target no Podfile');
       }
     } else {
-      console.log('✅ WaapiModule pod already exists in Podfile');
+      console.log('✅ Pod WaapiModule já existe no Podfile');
     }
     
     // Salvar as mudanças se houve modificações
@@ -255,32 +255,32 @@ function setupIOS() {
       const backupPath = podfilePath + '.backup.' + Date.now();
       fs.writeFileSync(backupPath, fs.readFileSync(podfilePath));
       fs.writeFileSync(podfilePath, podfileContent);
-      console.log(`💾 Backup created at ${path.basename(backupPath)}`);
-      console.log('✅ iOS Podfile updated successfully');
-      console.log('🔄 Please run "cd ios && pod install" to install the pod');
+      console.log(`💾 Backup criado em ${path.basename(backupPath)}`);
+      console.log('✅ Podfile do iOS atualizado com sucesso');
+      console.log('🔄 Execute "cd ios && pod install" para instalar o pod');
     } else {
-      console.log('✅ iOS configuration already up to date');
+      console.log('✅ Configuração iOS já está atualizada');
     }
     
   } catch (err) {
-    console.error('❌ Error setting up iOS:', err.message);
+    console.error('❌ Erro ao configurar iOS:', err.message);
   }
 }
 
 function showInstructions() {
-  console.log('\n📋 Setup Summary:');
+  console.log('\n📋 Resumo da Configuração:');
   console.log('');
-  console.log('✅ Waapi Module automatic setup completed!');
+  console.log('✅ Configuração automática do Módulo Waapi concluída!');
   console.log('');
   console.log('📱 Android:');
-  console.log('  - Maven repository configured automatically');
-  console.log('  - Flutter dependencies (debug, profile, release) configured automatically');
+  console.log('  - Repositório Maven configurado automaticamente');
+  console.log('  - Dependências Flutter (debug, profile, release) configuradas automaticamente');
   console.log('');
   console.log('🍎 iOS:');
-  console.log('  - WaapiModule pod configured automatically');
-  console.log('  - Run "cd ios && pod install" if you haven\'t already');
+  console.log('  - Pod WaapiModule configurado automaticamente');
+  console.log('  - Execute "cd ios && pod install" se ainda não executou');
   console.log('');
-  console.log('🔧 Manual Configuration (if automatic setup failed):');
+  console.log('🔧 Configuração Manual (se a configuração automática falhou):');
   console.log('');
   console.log('Android (android/app/build.gradle):');
   console.log('  repositories {');
@@ -303,6 +303,6 @@ try {
   setupIOS();
   showInstructions();
 } catch (err) {
-  console.error('❌ Setup failed:', err.message);
+  console.error('❌ Configuração falhou:', err.message);
   process.exit(1);
 } 
