@@ -1,6 +1,6 @@
 {
   "name": "@felipeduarte26/waapi-module",
-  "version": "1.0.0",
+  "version": "1.0.9",
   "description": "Flutter module for Wiipo project - React Native integration",
   "main": "index.js",
   "scripts": {
