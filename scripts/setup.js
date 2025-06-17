@@ -103,7 +103,7 @@ function setupAndroid() {
     let modified = false;
     
     // Configuração do repositório Maven
-    const mavenRepoConfig = `maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }`;
+    const mavenRepoConfig = `// Waapi Flutter Module Repository\n        maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }`;
     const mavenPatterns = [
       '@felipeduarte26/waapi-module/android/repo',
       '@wiipo/waapi-module/android/repo' // Manter compatibilidade com versão antiga
@@ -140,8 +140,47 @@ function setupAndroid() {
       console.log('✅ Repositório Maven já existe');
     }
     
+    // Configuração do repositório Flutter
+    const flutterRepoConfig = `// Flutter Engine Repository - Required by Waapi Module\n        maven { url "https://storage.googleapis.com/download.flutter.io" }`;
+    const flutterRepoPatterns = [
+      'storage.googleapis.com/download.flutter.io',
+      'download.flutter.io'
+    ];
+    
+    // Verificar se o repositório Flutter já existe
+    if (!containsAnyPattern(buildGradleContent, flutterRepoPatterns)) {
+      console.log('🔍 Repositório Flutter não encontrado, adicionando...');
+      
+      // Procurar pela seção repositories dentro de android
+      const androidRepositoriesRegex = /(android\s*\{[\s\S]*?repositories\s*\{[^}]*)\}/;
+      const androidMatch = buildGradleContent.match(androidRepositoriesRegex);
+      
+      if (androidMatch) {
+        const newRepositories = androidMatch[1] + `\n        ${flutterRepoConfig}\n    }`;
+        buildGradleContent = buildGradleContent.replace(androidRepositoriesRegex, newRepositories);
+        console.log('✅ Repositório Flutter adicionado à seção repositories do Android');
+        modified = true;
+      } else {
+        // Procurar por repositories global
+        const globalRepositoriesRegex = /(repositories\s*\{[^}]*)\}/;
+        const globalMatch = buildGradleContent.match(globalRepositoriesRegex);
+        
+        if (globalMatch) {
+          const newRepositories = globalMatch[1] + `\n    ${flutterRepoConfig}\n}`;
+          buildGradleContent = buildGradleContent.replace(globalRepositoriesRegex, newRepositories);
+          console.log('✅ Repositório Flutter adicionado à seção repositories global');
+          modified = true;
+        } else {
+          console.warn('⚠️  Não foi possível encontrar a seção repositories no build.gradle');
+        }
+      }
+    } else {
+      console.log('✅ Repositório Flutter já existe');
+    }
+    
     // Configuração das dependências Flutter
     const flutterDependencies = [
+      "// Waapi Flutter Module Implementation",
       "debugImplementation 'com.wiipo.waapi_module:flutter_debug:1.0'",
       "profileImplementation 'com.wiipo.waapi_module:flutter_profile:1.0'",
       "releaseImplementation 'com.wiipo.waapi_module:flutter_release:1.0'"
@@ -219,7 +258,7 @@ function setupIOS() {
     let modified = false;
     
     // Configuração do pod com novo package name
-    const podLine = "pod 'WaapiModule', :path => '../node_modules/@felipeduarte26/waapi-module'";
+    const podLine = "# Waapi Flutter Module\n  pod 'WaapiModule', :path => '../node_modules/@felipeduarte26/waapi-module'";
     const podPatterns = [
       '@felipeduarte26/waapi-module',
       '@wiipo/waapi-module', // Manter compatibilidade com versão antiga
@@ -274,6 +313,7 @@ function showInstructions() {
   console.log('');
   console.log('📱 Android:');
   console.log('  - Repositório Maven configurado automaticamente');
+  console.log('  - Repositório Flutter configurado automaticamente');
   console.log('  - Dependências Flutter (debug, profile, release) configuradas automaticamente');
   console.log('');
   console.log('🍎 iOS:');
@@ -284,15 +324,20 @@ function showInstructions() {
   console.log('');
   console.log('Android (android/app/build.gradle):');
   console.log('  repositories {');
+  console.log('    // Waapi Flutter Module Repository');
   console.log('    maven { url "$rootDir/../node_modules/@felipeduarte26/waapi-module/android/repo" }');
+  console.log('    // Flutter Engine Repository - Required by Waapi Module');
+  console.log('    maven { url "https://storage.googleapis.com/download.flutter.io" }');
   console.log('  }');
   console.log('  dependencies {');
+  console.log('    // Waapi Flutter Module Implementation');
   console.log('    debugImplementation "com.wiipo.waapi_module:flutter_debug:1.0"');
   console.log('    profileImplementation "com.wiipo.waapi_module:flutter_profile:1.0"');
   console.log('    releaseImplementation "com.wiipo.waapi_module:flutter_release:1.0"');
   console.log('  }');
   console.log('');
   console.log('iOS (ios/Podfile):');
+  console.log('  # Waapi Flutter Module');
   console.log('  pod "WaapiModule", :path => "../node_modules/@felipeduarte26/waapi-module"');
   console.log('');
 }
